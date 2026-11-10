@@ -4809,7 +4809,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
     const exitBtn=document.getElementById('videoExitBtn');
     if(exitBtn){
       exitBtn.addEventListener('click',function(){
-        if(confirm('確定離開百家樂房間？')) alert('返回 AB 真人館大廳');
+        if(confirm('確定離開百家樂房間？')) window.location.assign(new URL('index.html', window.location.href).href);
       });
     }
     document.querySelectorAll('.video-side-action-rail [data-menu-action]').forEach(btn=>{
