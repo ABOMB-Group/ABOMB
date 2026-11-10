@@ -2611,4 +2611,41 @@ html body .roulette-chip-panel-v25 .sicbo-action-label{font-size:8px!important;l
   else init();
 })();
 </script>
+<style id="abomb-dealer-preview">
+html body .app .video-section {
+    background: linear-gradient(180deg,#07050245,transparent 28%,#08060314 64%,#0b0806a3), url("assets/img/abomb-dealer-preview.webp") center center / cover no-repeat !important;
+}
+html body .app .video-section .roulette-wrapper {
+    align-self: flex-end;
+    margin-bottom: clamp(4px, 2.5vh, 18px);
+}
+</style>
+<style id="abomb-table-switch-and-sound-layout">
+#videoDrawerHandle.video-drawer-handle {
+    scale: .90;
+    transform-origin: right center;
+}
+
+html body > #toolbarDropdown {
+    position: fixed !important;
+    inset: 50% auto auto 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: min(340px, calc(100% - 24px)) !important;
+    min-width: 0 !important;
+    max-height: calc(100vh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    overflow: auto !important;
+    overscroll-behavior: contain;
+    box-sizing: border-box;
+    z-index: 61000 !important;
+}
+html body > #toolbarDropdown input[type="range"] { min-width: 0; }
+</style>
+<script>
+(() => {
+    const sound = document.getElementById('toolbarDropdown');
+    if (sound && sound.parentElement !== document.body) document.body.appendChild(sound);
+})();
+</script>
 </body></html>

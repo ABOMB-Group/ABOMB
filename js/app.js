@@ -1962,16 +1962,14 @@ return s;
 }
 function saveState(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
 function ensureToolbar(){
-var video=document.querySelector('.dice-video-area')||document.querySelector('.video-area')||document.body;
 var toolbar=document.getElementById('toolbarDropdown');
 if(!toolbar){
 toolbar=document.createElement('div');
 toolbar.id='toolbarDropdown';
 toolbar.className='ab-sicbo-panel collapsed';
-video.appendChild(toolbar);
 }
 toolbar.innerHTML=SOUND_HTML;
-if(toolbar.parentElement!==video) video.appendChild(toolbar);
+if(toolbar.parentElement!==document.body) document.body.appendChild(toolbar);
 return toolbar;
 }
 function ensurePanel(id){
