@@ -1649,6 +1649,86 @@ body.report-modal-open .report-page{animation:reportTopIn .22s ease forwards !im
 @media (max-width:380px){.ab-bgm-actions{grid-template-columns:1fr}.ab-bgm-actions button{height:35px}.ab-bgm-volume-row{grid-template-columns:38px 1fr 42px}}
 </style>
 
+
+<style id="abomb-lobby-desktop-typography-v1">
+/* 真人館桌機版可讀性優化。保留所有遊戲卡片、素材、光效與既有事件。 */
+@media (min-width: 768px) {
+  .tabs-area { height: 90px !important; padding-top: 20px !important; }
+  .tabs-real {
+    max-width: none !important;
+    height: 56px !important;
+    align-items: center !important;
+    gap: 9px !important;
+    padding: 0 18px !important;
+    overflow: visible !important;
+  }
+  .main-tab {
+    width: 104px !important;
+    min-width: 104px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 16px !important;
+    letter-spacing: .6px !important;
+    border-radius: 9px !important;
+    cursor: pointer;
+    transition: filter .18s ease, transform .18s ease;
+  }
+  .main-tab:hover { filter: brightness(1.15); }
+  .main-tab:focus-visible, .sub-tab:focus-visible, .nav-item:focus-visible {
+    outline: 2px solid #e6c77b !important;
+    outline-offset: 3px;
+  }
+  .aurora-thin { height: 40px !important; border-radius: 9px !important; }
+  .aurora-thin::before { border-radius: 9px !important; }
+  .aurora-thin::after { border-radius: 10px !important; }
+  .sub-tabs {
+    width: 146px !important;
+    min-width: 146px !important;
+    flex: 0 0 146px !important;
+    height: 40px !important;
+    border-radius: 21px !important;
+  }
+  .sub-tab, .sub-tab:first-child, .sub-tab:last-child {
+    width: 50% !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 15px !important;
+    cursor: pointer;
+  }
+  .sub-tab.active { border-radius: 21px !important; }
+  .bottom-nav {
+    height: 92px !important;
+    padding-top: 9px !important;
+    padding-bottom: 12px !important;
+  }
+  .bottom-nav .nav-item {
+    height: 70px !important;
+    gap: 6px !important;
+    border-radius: 14px;
+    transition: background .2s ease, color .2s ease;
+  }
+  .bottom-nav .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+  .bottom-nav .nav-icon { width: 38px !important; height: 38px !important; }
+  .bottom-nav .nav-icon svg { width: 23px !important; height: 23px !important; }
+  .bottom-nav .nav-text {
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+    letter-spacing: .5px !important;
+  }
+  .notice { height: 30px !important; font-size: 13px !important; line-height: 30px !important; }
+  .notice .speaker { width: 30px !important; height: 30px !important; flex-basis: 30px !important; }
+}
+@media (min-width: 1200px) {
+  .tabs-area { height: 94px !important; }
+  .tabs-real { padding: 0 24px !important; gap: 12px !important; }
+  .main-tab { width: 115px !important; min-width: 115px !important; height: 44px !important; line-height: 44px !important; font-size: 17px !important; }
+  .aurora-thin { height: 44px !important; }
+  .sub-tabs { height: 44px !important; }
+  .sub-tab, .sub-tab:first-child, .sub-tab:last-child { height: 44px !important; line-height: 44px !important; font-size: 16px !important; }
+  .bottom-nav .nav-text { font-size: 15px !important; }
+}
+</style>
+
 </head>
 <body>
 <main class="app">

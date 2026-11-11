@@ -3031,12 +3031,58 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
 }
 </style>
 
+<style id="abomb-road-toggle-and-visible-points">
+/* 額外顯示原玩家點數，數字連動既有 playerPointsDisplay，不產生第二份餘額。 */
+.video-area .ab-room-points { position:absolute;top:13px;right:146px;z-index:140;
+  display:flex;gap:5px;align-items:center;max-width:calc(100% - 215px);padding:5px 8px;
+  border:1px solid rgba(235,189,95,.55);border-radius:14px;background:rgba(0,0,0,.76);
+  color:#f9da94;font:700 12px/1.3 inherit;white-space:nowrap;pointer-events:none; }
+.video-area .ab-room-points b{color:white;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.top-nav .logo-area{margin-left:0!important;transform:translateX(-5px)}
+/* 收合只影響展示，不移除原本 DOM、牌路資料及其水平捲動能力 */
+#aRoadmap .ab-road-head{display:flex!important;justify-content:space-between;align-items:center;gap:8px;padding:3px 4px 7px}
+#aRoadmap .ab-road-view-toggle{border:1px solid #947343;border-radius:10px;background:#181a20;color:#ffdf91;padding:7px 11px;cursor:pointer;font:700 12px inherit}
+#aRoadmap .ab-road-view-toggle:focus-visible{outline:2px solid #ffd87f;outline-offset:2px}
+#aRoadmap .ab-road-hint{font:500 11px inherit;color:#b9b7ac}
+#aRoadmap .ab-road-body{display:flex;align-items:stretch;gap:8px;min-width:0}
+#aRoadmap .ab-road-existing{min-width:0;flex:1;overflow:hidden}
+#aRoadmap:not(.ab-roads-expanded) .ab-road-existing .bigroad-wrapper,
+#aRoadmap:not(.ab-roads-expanded) .ab-road-existing .subroads-container{display:none!important}
+#aRoadmap:not(.ab-roads-expanded) .ab-road-existing .road-dual-container{display:flex!important;width:100%!important;height:110px!important;min-height:0!important;max-height:none!important;overflow:hidden!important}
+#aRoadmap:not(.ab-roads-expanded) .ab-road-existing .beadplate-wrapper{display:block!important;flex:1!important;width:100%!important;min-width:0!important}
+#aRoadmap .ab-road-ask{width:160px;flex:0 0 160px;padding:5px;border:1px solid rgba(230,177,88,.35);border-radius:8px;background:#121316;color:#f5edda;display:flex;flex-direction:column;justify-content:center;gap:6px}
+#aRoadmap .ab-road-ask-item{display:flex;align-items:center;justify-content:space-between;gap:5px}
+#aRoadmap .ab-road-ask-item strong{font-size:12px;white-space:nowrap}
+#aRoadmap .ab-road-ask-dots{display:flex;gap:3px}
+#aRoadmap .ab-ask-dot{width:12px;height:12px;border-radius:50%;border:1.5px solid #9da4b5;display:block;flex:0 0 12px}
+#aRoadmap .ab-ask-dot.red{border-color:#f43848;background:#f43848}
+#aRoadmap .ab-ask-dot.blue{border-color:#378afa;background:#378afa}
+#aRoadmap .ab-road-ask small{font-size:9px;opacity:.7;text-align:center}
+#aRoadmap.ab-roads-expanded .ab-road-existing{width:100%;flex:1 1 100%;overflow:visible}
+#aRoadmap.ab-roads-expanded .ab-road-ask{display:none}
+#aRoadmap.ab-roads-expanded{height:auto!important;max-height:none!important;overflow:visible!important}
+#aRoadmap.ab-roads-expanded .ab-road-body{display:block!important}
+#aRoadmap.ab-roads-expanded .ab-road-existing .road-dual-container{display:flex!important}
+#aRoadmap.ab-roads-expanded .ab-road-existing .subroads-container{display:flex!important}
+#aRoadmap.ab-roads-expanded .ab-road-existing .bigroad-wrapper{display:block!important}
+#aRoadmap.ab-roads-expanded .ab-road-existing .subroad-item{display:block!important}
+/* 原牌路容器保留 overflow-x，滑動前面的紀錄不受收合切換影響 */
+#aRoadmap :is(#beadplateContainer,#bigRoadContainer,#bigeyeContainer,#smallRoadContainer,#cockroachContainer){overflow-x:auto!important;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
+@media(max-width:767px){
+  .video-area .ab-room-points{right:134px;top:10px;font-size:10px;padding:4px 6px;max-width:calc(100% - 205px)}
+  #aRoadmap .ab-road-ask{width:115px;flex-basis:115px}
+  #aRoadmap .ab-road-ask-item{flex-wrap:wrap}
+  #aRoadmap .ab-road-hint{font-size:9px}
+  #aRoadmap:not(.ab-roads-expanded) .ab-road-existing .road-dual-container{height:96px!important}
+}
+@media(max-width:380px){.video-area .ab-room-points{right:128px;font-size:9px}#aRoadmap .ab-road-ask{width:102px;flex-basis:102px}}
+</style>
 </head>
 <body>
 <div class="app-container">
     <div class="top-nav"><div class="portrait-brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 5l5 4 6-7 6 7 5-4-4 13H5zM5 20h14v2H5z"/></svg><span>ABOMB 百家樂</span></div><div class="logo-area"><div class="logo-icon"><i class="fas fa-dice-d6"></i></div><div class="logo-text">Abomb</div></div><div class="player-info-compact"><div class="compact-avatar"><i class="fas fa-user-astronaut"></i></div><div class="compact-stats"><div class="compact-name">旋風俠客 ✦ 鑽石VIP</div><div class="compact-detail"><span><i class="fas fa-coins"></i> <span id="playerPointsDisplay" class="player-points">1,284,550</span></span><span><i class="fas fa-chart-line"></i> 68.7%</span><span><i class="fas fa-users"></i> 2,341</span></div></div></div></div>
 
-    <div class="a-desktop a-table-bar"><span>百家樂 <b id="aTableName">A1001</b></span><span class="portrait-only portrait-live" title="原型模擬直播">直播中</span><span id="aLimit"></span><span class="portrait-only portrait-audience" title="示意觀看人數">♟ 1,268</span></div>
+    <div class="a-desktop a-table-bar"><span>百家樂 <b id="aTableName">A1001</b></span><span class="portrait-only portrait-live" title="原型模擬直播">直播中</span><span id="aLimit"></span><span class="ab-room-points" aria-label="玩家點數">◈ <b id="abRoomPoints">—</b></span><span class="portrait-only portrait-audience" title="示意觀看人數">♟ 1,268</span></div>
     <div class="live-section">
         <div class="video-area">
             <img class="portrait-only portrait-switch-scene" alt="" aria-hidden="true" src="data:image/webp;base64,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">
@@ -3149,7 +3195,24 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
         <span class="road-stat-chip total">總數 <b id="statTotal">0</b></span>
     </div>
 
-    <div class="roadmap-panel" id="aRoadmap"><div class="road-dual-container"><div class="beadplate-wrapper"><div class="beadplate-title">珠盤路</div><div id="beadplateContainer" class="beadplate-grid"></div></div><div class="bigroad-wrapper" id="bigroadScrollWrapper"><div class="bigroad-title" style="font-size:10px; color:#ffcc88;">大路</div><div id="bigRoadContainer" class="bigroad-container"></div></div></div><div class="subroads-container"><div class="subroad-item"><div class="subroad-title">大眼仔</div><div id="bigeyeContainer" class="subroad-table"></div></div><div class="subroad-item"><div class="subroad-title">小路</div><div id="smallRoadContainer" class="subroad-table"></div></div><div class="subroad-item"><div class="subroad-title">甲由路</div><div id="cockroachContainer" class="subroad-table" role="region" aria-label="甲由路" tabindex="0"></div></div></div><div class="portrait-only portrait-road-actions" aria-label="牌路顯示"><button type="button" data-portrait-road="big" aria-pressed="true">大路<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h8v8m0-8L10 14m10 0v6H4V4h6"/></svg></button><button type="button" data-portrait-road="eye" aria-pressed="false">大眼仔路<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h8v8m0-8L10 14m10 0v6H4V4h6"/></svg></button><button type="button" data-portrait-road="small" aria-pressed="false">小路<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h8v8m0-8L10 14m10 0v6H4V4h6"/></svg></button><button type="button" data-portrait-road="roach" aria-controls="cockroachContainer" aria-pressed="false">甲由路<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h8v8m0-8L10 14m10 0v6H4V4h6"/></svg></button></div></div>
+    <div class="roadmap-panel ab8-roadmap" id="aRoadmap" data-ab8-view="all" aria-label="百家樂牌路，輕點切換牌路，左右滑動查看歷史">
+  <div class="ab8-body" id="ab8SwitchSurface" tabindex="0" role="button" aria-label="輕點切換總覽、大路、大眼仔路、小路、甲由路；左右滑動查看歷史">
+    <div class="ab8-all-area">
+      <div class="ab8-bead ab8-road-box"><div id="beadplateContainer" class="beadplate-grid ab8-scroll"></div></div>
+      <div class="ab8-big ab8-road-box"><div id="bigRoadContainer" class="bigroad-container ab8-scroll"></div></div>
+      <div class="ab8-derived">
+        <div class="ab8-eye ab8-road-box"><div id="bigeyeContainer" class="subroad-table ab8-scroll"></div></div>
+        <div class="ab8-small ab8-road-box"><div id="smallRoadContainer" class="subroad-table ab8-scroll"></div></div>
+        <div class="ab8-roach ab8-road-box"><div id="cockroachContainer" class="subroad-table ab8-scroll"></div></div>
+      </div>
+    </div>
+    <aside class="ab8-ask" aria-label="莊與閒問路">
+      <div id="ab8Streak" class="ab8-streak" hidden></div>
+      <div class="ab8-ask-half"><strong>莊</strong><div id="abBankerAskDots" class="ab8-ask-marks" aria-label="莊：大眼仔路、小路、甲由路"></div></div>
+      <div class="ab8-ask-half"><strong>閒</strong><div id="abPlayerAskDots" class="ab8-ask-marks" aria-label="閒：大眼仔路、小路、甲由路"></div></div>
+    </aside>
+  </div>
+</div>
 
     <div class="chat-room collapsed" id="chatRoom" role="region" aria-label="聊天室"><div class="chat-header" id="chatToggleBtn"><i class="fas fa-gift gift-icon" id="giftIconBtn"></i><span>💬 下注達100元，開始聊天</span><button type="button" class="collapse-icon" aria-controls="chatMessages" aria-expanded="false" aria-label="展開聊天室"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg"><span class="msg-name">💎 系統</span><span> : 精緻骰寶風格禮物｜完整百家樂補牌｜視訊區箭頭｜動態好路抽屜｜新增輪盤遊戲房</span></div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="下注滿100元後可聊天..." disabled><button id="sendChatBtn" disabled>發送</button></div></div>
 </div>
@@ -3270,7 +3333,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
             <section class="help-section">
                 <h4>桌台注意事項</h4>
                 <ul>
-                    <li><strong>旁注局數限制</strong>　每靴牌第 26 局結束後，自第 27 局起停止受理完美對子、大、小、莊單、莊雙、閒單、閒雙及超級和（超和）。各旁注的停押局數依平台商與桌台設定為準。</li>
+                    <li><strong>旁注局數限制</strong>　每靴牌第 30 局結束後，自第 31 局起停止受理完美對子、大、小、莊單、莊雙、閒單、閒雙及超級和（超和）。各旁注的停押局數依平台商與桌台設定為準。</li>
                     <li><strong>倍押限制</strong>　倍押最多 8 局。達到 8 局後，不得再使用倍押。</li>
                 </ul>
             </section>
@@ -3947,6 +4010,38 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
                     ? '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 9L9 1" fill="none" stroke="' +
                         (mark.value === 'red' ? '#ef2028' : '#1b53f0') + '" stroke-width="1.8"/></svg>'
                     : '') + '</div>');
+            // 路紙右側：按照原本牌路計算推演「莊／閒」下一手的三種衍生路。
+            const beforeRoads = buildBaccaratRoads(gameHistory);
+            for (const [side, targetId] of [['莊','abBankerAskDots'], ['閒','abPlayerAskDots']]) {
+                const target = document.getElementById(targetId);
+                if (!target) continue;
+                const hypothetical = buildBaccaratRoads([...gameHistory, {result:side, bankerPair:false, playerPair:false}]);
+                target.replaceChildren();
+                for (let k = 1; k <= 3; k++) {
+                    const previousCount = beforeRoads[k].reduce((n,row)=>n + row.filter(Boolean).length,0);
+                    const after = hypothetical[k].flat().filter(Boolean);
+                    const addedMark = after.length > previousCount ? after[after.length-1] : null;
+                    const color = addedMark?.value === 'red' ? 'red' : addedMark?.value === 'blue' ? 'blue' : 'none';
+                    const mark = document.createElement('span');
+                    mark.className = 'ab8-ask-mark ab8-mark-'+k+' '+color;
+                    mark.title = ['','大眼仔路','小路','甲由路'][k] + '：'+(color === 'red'?'紅':color==='blue'?'藍':'暫無資料');
+                    mark.setAttribute('aria-label', mark.title);
+                    target.append(mark);
+                }
+            }
+            // 連莊：忽略中途和局；只有連續兩次以上莊勝才顯示提示。
+            let bankers = 0;
+            for (let i=gameHistory.length-1; i>=0; i--) {
+                const result = gameHistory[i].result;
+                if (result === '和') continue;
+                if (result !== '莊') break;
+                bankers++;
+            }
+            const streakBanner = document.getElementById('ab8Streak');
+            if (streakBanner) {
+                streakBanner.hidden = bankers < 2;
+                streakBanner.textContent = bankers >= 2 ? bankers+'連莊' : '';
+            }
         }
         function startNextRoundCountdown(){ if(roundTimer) clearTimeout(roundTimer); if(countdownInterval) clearInterval(countdownInterval); settle=false; updateSideBetAvailability(); countdownSec=15; if(radarDiv) radarDiv.classList.remove('hide'); if(hudNum) hudNum.innerText=countdownSec; countdownInterval=setInterval(()=>{ if(settle) return; if(countdownSec<=1){ clearInterval(countdownInterval); if(hudNum) hudNum.innerText=0; if(radarDiv) radarDiv.classList.add('hide'); settle=true; addChatMessage("🎲 系統", "下注結束，開始發牌", "#ffaa66"); executeDeal(); } else { countdownSec--; if(hudNum) hudNum.innerText=countdownSec; if(countdownSec<=5 && countdownSec>0 && !masterMuted && gameVolume>0){ try{ let ctx=new (AudioContext||webkitAudioContext)(); let osc=ctx.createOscillator(); let gain=ctx.createGain(); gain.gain.value=gameVolume/100; osc.frequency.value=880; osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+0.1); ctx.close(); }catch(e){} } if(radarDiv && countdownSec<=5) radarDiv.classList.add('urgent'); else if(radarDiv) radarDiv.classList.remove('urgent'); } },1000); }
 
@@ -7538,6 +7633,559 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
         pointer-events: none;
         z-index: 0;
     }
+}
+</style>
+<script id="abomb-road-panel-and-points">
+(() => {
+  const panel = document.getElementById('aRoadmap');
+  const toggle = document.getElementById('abRoadViewToggle');
+  const label = document.getElementById('abRoadViewLabel');
+  if (panel && toggle) {
+    toggle.addEventListener('click', () => {
+      const expanded = panel.classList.toggle('ab-roads-expanded');
+      toggle.setAttribute('aria-expanded', String(expanded));
+      label.textContent = expanded ? '收合四路 ▴' : '點擊查看四路 ▾';
+    });
+  }
+  const source = document.getElementById('playerPointsDisplay');
+  const dest = document.getElementById('abRoomPoints');
+  if (source && dest) {
+    const sync = () => dest.textContent = source.textContent.trim();
+    sync();
+    new MutationObserver(sync).observe(source,{childList:true,characterData:true,subtree:true});
+  }
+})();
+</script>
+
+<style id="abomb-road-cleanup-v2">
+/* v2: balance lives inside table-bar, never on dealer video */
+.app-container .a-table-bar{display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:5px!important;min-width:0!important}
+.app-container .a-table-bar .ab-room-points{position:relative!important;top:auto!important;right:auto!important;left:auto!important;z-index:1!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;gap:3px!important;margin-left:auto!important;padding:2px 6px!important;max-width:none!important;border:1px solid rgba(232,182,75,.5)!important;border-radius:20px!important;background:#14120d!important;color:#f8d792!important;white-space:nowrap!important;font-size:11px!important;line-height:1.25!important;pointer-events:none!important}
+.app-container .a-table-bar .ab-room-points b{font-size:inherit!important;color:#fff!important;font-variant-numeric:tabular-nums}
+.app-container .a-table-bar .portrait-audience{margin-left:0!important;flex:0 0 auto!important}
+/* compressed road: beadboard left, big road over three derived roads middle, two asks right */
+.app-container #aRoadmap,.app-container.a-roads-collapsed > #aRoadmap{display:flex!important;flex-direction:column!important;position:relative!important;height:auto!important;max-height:none!important;min-height:0!important;overflow:hidden!important;padding:5px!important;gap:3px!important;grid-template-columns:none!important;grid-template-rows:none!important}
+.app-container #aRoadmap .ab-road-head{display:flex!important;min-height:22px!important;padding:1px 3px!important;gap:4px!important}
+.app-container #aRoadmap .ab-road-view-toggle{font-size:11px!important;padding:3px 8px!important}
+.app-container #aRoadmap .ab-road-hint{font-size:9px!important;white-space:nowrap}
+.app-container #aRoadmap .ab-road-body{display:flex!important;align-items:stretch!important;gap:4px!important;height:115px!important;min-height:0!important;width:100%!important}
+.app-container #aRoadmap .ab-road-existing{display:grid!important;grid-template-columns:minmax(0,34%) minmax(0,66%)!important;grid-template-rows:minmax(0,70%) minmax(0,30%)!important;flex:1 1 auto!important;min-width:0!important;width:auto!important;height:100%!important;gap:2px!important;overflow:hidden!important}
+.app-container #aRoadmap .ab-road-existing .road-dual-container{display:contents!important;height:auto!important;width:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
+.app-container #aRoadmap .ab-road-existing .beadplate-wrapper{display:block!important;grid-column:1!important;grid-row:1/3!important;width:100%!important;min-height:0!important;min-width:0!important;max-height:none!important;height:100%!important;overflow:auto!important;border-radius:5px!important}
+.app-container #aRoadmap .ab-road-existing .bigroad-wrapper{display:block!important;visibility:visible!important;grid-column:2!important;grid-row:1!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;overflow:auto!important;border-radius:5px 5px 0 0!important}
+.app-container #aRoadmap .ab-road-existing .subroads-container{display:grid!important;visibility:visible!important;grid-column:2!important;grid-row:2!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:1fr!important;gap:1px!important;min-width:0!important;min-height:0!important;height:100%!important;overflow:hidden!important;margin:0!important;padding:0!important}
+.app-container #aRoadmap .ab-road-existing .subroad-item{display:block!important;visibility:visible!important;position:relative!important;grid-area:auto!important;width:100%!important;min-height:0!important;height:100%!important;overflow:hidden!important;padding:0!important}
+.app-container #aRoadmap .ab-road-ask{display:flex!important;flex:0 0 78px!important;width:78px!important;min-width:0!important;min-height:0!important;height:100%!important;gap:1px!important;padding:3px!important;justify-content:space-around!important;border-radius:5px!important;background:#f6f7fb!important;color:#1c2935!important}
+.app-container #aRoadmap .ab-road-ask-item{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:3px!important;flex-wrap:nowrap!important}
+.app-container #aRoadmap .ab-road-ask-item strong{font-size:11px!important;color:#18263a!important}
+.app-container #aRoadmap .ab-road-ask-dots{display:grid!important;grid-template-columns:repeat(2,12px)!important;gap:3px!important;justify-content:center!important}
+.app-container #aRoadmap .ab-ask-dot{width:12px!important;height:12px!important;flex:0 0 12px!important}
+.app-container #aRoadmap .ab-road-ask small{display:none!important}
+.app-container #aRoadmap .portrait-road-actions{display:none!important}
+/* do not let previous portrait data-portrait-road hide any of the four roads */
+.app-container #aRoadmap[data-portrait-road] .bigroad-wrapper,
+.app-container #aRoadmap[data-portrait-road] .subroads-container,
+.app-container #aRoadmap[data-portrait-road] .subroad-item{display:block!important;visibility:visible!important}
+.app-container #aRoadmap[data-portrait-road] .subroads-container{display:grid!important}
+/* scroll underlying records horizontally, never replace history grids */
+.app-container #aRoadmap :is(#beadplateContainer,#bigRoadContainer,#bigeyeContainer,#smallRoadContainer,#cockroachContainer){overflow-x:auto!important;overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y!important}
+/* expansion provides a taller inspection area while keeping same data */
+.app-container #aRoadmap.ab-roads-expanded .ab-road-body{height:210px!important}
+.app-container #aRoadmap.ab-roads-expanded .ab-road-existing{height:100%!important;grid-template-rows:70% 30%!important}
+.app-container #aRoadmap.ab-roads-expanded .ab-road-ask{display:flex!important}
+@media(max-width:600px){
+ .app-container #aRoadmap .ab-road-body{height:105px!important}
+ .app-container #aRoadmap .ab-road-ask{flex-basis:68px!important;width:68px!important}
+ .app-container #aRoadmap .ab-road-ask-dots{grid-template-columns:repeat(2,10px)!important;gap:2px!important}
+ .app-container #aRoadmap .ab-ask-dot{width:10px!important;height:10px!important;flex-basis:10px!important}
+ .app-container #aRoadmap .ab-road-ask-item strong{font-size:9px!important}
+ .app-container #aRoadmap .ab-road-hint{font-size:8px!important}
+ .app-container #aRoadmap.ab-roads-expanded .ab-road-body{height:185px!important}
+ .app-container .a-table-bar .ab-room-points{font-size:9px!important;padding:2px 4px!important}
+}
+@media(max-width:370px){
+ .app-container #aRoadmap .ab-road-ask{flex-basis:58px!important;width:58px!important}
+ .app-container #aRoadmap .ab-road-hint{display:none!important}
+ .app-container .a-table-bar .ab-room-points{font-size:8px!important}
+}
+</style>
+
+
+
+
+
+<style id="ab8-road-fully-isolated">
+/* V8 single-source road viewport: old portrait/expanded selectors cannot reach new wrappers. */
+.app-container #aRoadmap.ab8-roadmap {display:block!important;grid-template-columns:none!important;grid-template-rows:none!important;height:auto!important;min-height:0!important;max-height:none!important;padding:3px!important;overflow:hidden!important;border:1px solid #ae8737!important;border-radius:9px!important;background:#11100b!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-body {display:flex!important;align-items:stretch!important;width:100%!important;height:137px!important;min-height:137px!important;gap:2px!important;overflow:hidden!important;touch-action:pan-x pan-y;cursor:pointer;}
+.app-container #aRoadmap.ab8-roadmap .ab8-all-area {display:grid!important;flex:1 1 auto!important;min-width:0!important;width:0!important;height:100%!important;grid-template-columns:minmax(0,31%) minmax(0,69%)!important;grid-template-rows:minmax(0,69%) minmax(0,31%)!important;gap:1px!important;background:#d4d6dc!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-road-box {display:block!important;min-width:0!important;min-height:0!important;width:100%!important;height:100%!important;max-height:none!important;overflow:hidden!important;position:relative!important;background:#f7f8fa!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;visibility:visible!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-bead {grid-column:1!important;grid-row:1/3!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-big {grid-column:2!important;grid-row:1!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-derived {display:grid!important;grid-column:2!important;grid-row:2!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;min-width:0!important;min-height:0!important;gap:1px!important;background:#d4d6dc!important;overflow:hidden!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll {display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;gap:0!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important;overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-x!important;scrollbar-width:none!important;-ms-overflow-style:none!important;background:#f8f9fb!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll::-webkit-scrollbar {display:none!important;height:0!important;width:0!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll > :is(.beadplate-row,.bigroad-row,.subroad-row) {display:flex!important;justify-content:flex-start!important;flex:0 0 auto!important;flex-wrap:nowrap!important;align-items:center!important;width:max-content!important;max-width:none!important;min-height:var(--ab8-cell)!important;height:var(--ab8-cell)!important;gap:0!important;margin:0!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll :is(.bead-cell,.bigroad-cell,.bigeye-dot,.small-dot,.slash-cell){display:grid!important;place-items:center!important;box-sizing:border-box!important;width:var(--ab8-cell)!important;height:var(--ab8-cell)!important;min-width:var(--ab8-cell)!important;min-height:var(--ab8-cell)!important;flex:0 0 var(--ab8-cell)!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border-radius:0!important;position:relative!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll :is(.bead-cell,.bigroad-cell,.bigeye-dot,.small-dot,.slash-cell){background-image:linear-gradient(to right,#dfe2e7 1px,transparent 1px),linear-gradient(to bottom,#dfe2e7 1px,transparent 1px)!important;background-size:100% 100%!important;}
+.app-container #aRoadmap.ab8-roadmap .bead-cell {font-size:8px!important;line-height:1!important;}
+.app-container #aRoadmap.ab8-roadmap .bead-cell:not(:empty) {border:1px solid #fff!important;border-radius:50%!important;color:#fff!important;}
+.app-container #aRoadmap.ab8-roadmap .bead-cell.cell-red:not(:empty){background:#dd2d3b!important;}
+.app-container #aRoadmap.ab8-roadmap .bead-cell.cell-blue:not(:empty){background:#1876d5!important;}
+.app-container #aRoadmap.ab8-roadmap .bead-cell.cell-tie:not(:empty){background:#19a65c!important;}
+.app-container #aRoadmap.ab8-roadmap .bigroad-cell.circle-red {background:#f9fafb!important;border:1.5px solid #e12a39!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .bigroad-cell.circle-blue {background:#f9fafb!important;border:1.5px solid #1773da!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .bigeye-dot-red {background:#f9fafb!important;border:1.5px solid #e12a39!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .bigeye-dot-blue {background:#f9fafb!important;border:1.5px solid #1773da!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .small-dot-red {background:#e12a39!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .small-dot-blue {background:#1773da!important;border-radius:50%!important;}
+.app-container #aRoadmap.ab8-roadmap .slash-cell svg{width:85%!important;height:85%!important;}
+.app-container #aRoadmap.ab8-roadmap {--ab8-cell:13px;}
+/* The ask-road column is NOT a fourth road; each prediction shows 3 symbols. */
+.app-container #aRoadmap.ab8-roadmap .ab8-ask {display:flex!important;flex-direction:column!important;flex:0 0 40px!important;width:40px!important;min-width:40px!important;max-width:40px!important;height:100%!important;position:relative!important;overflow:hidden!important;background:#f2f3f6!important;border:1px solid #c9cbd0!important;color:#172b40!important;gap:0!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-streak {display:block!important;flex:0 0 21px!important;height:21px!important;background:#f45c70!important;color:white!important;font-weight:900!important;font-size:9px!important;white-space:nowrap!important;text-align:center!important;line-height:21px!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-streak[hidden]{display:none!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-half {display:flex!important;flex:1 1 50%!important;flex-direction:column!important;align-items:center!important;justify-content:space-around!important;min-height:0!important;padding:1px 0!important;border-bottom:1px solid #fff!important;gap:0!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-half:last-child{border-bottom:0!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-half strong{font-weight:900!important;font-size:12px!important;line-height:1!important;color:#cf2733!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-half:last-child strong{color:#1673ce!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-marks{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;align-items:center!important;justify-content:space-evenly!important;width:100%!important;gap:1px!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-ask-mark {display:block!important;flex:0 0 9px!important;width:9px!important;height:9px!important;min-width:9px!important;min-height:9px!important;border-radius:50%!important;border:1.6px solid #9aa4b3!important;background:transparent!important;box-shadow:none!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-mark-1.red{border-color:#e62938!important;}.app-container #aRoadmap.ab8-roadmap .ab8-mark-1.blue{border-color:#1778d7!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-mark-2.red{background:#e62938!important;border-color:#e62938!important;}.app-container #aRoadmap.ab8-roadmap .ab8-mark-2.blue{background:#1778d7!important;border-color:#1778d7!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-mark-3 {border:0!important;border-radius:0!important;background:transparent!important;position:relative!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-mark-3::before{content:"";position:absolute;top:4px;left:0;width:12px;height:2px;transform:rotate(-53deg);transform-origin:center;background:#98a6b4;}
+.app-container #aRoadmap.ab8-roadmap .ab8-mark-3.red::before{background:#e62938!important;}.app-container #aRoadmap.ab8-roadmap .ab8-mark-3.blue::before{background:#1778d7!important;}
+/* Single road fills the SAME upper roadmap panel; never adds a second blank display. */
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-body{height:137px!important;min-height:137px!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-ask{display:none!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-all-area{display:block!important;width:100%!important;height:100%!important;background:#f8f9fb!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-bead,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-big,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-derived,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-derived .ab8-road-box{display:none!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="big"]:not([data-ab8-view="all"]) .ab8-big{display:block!important;width:100%!important;height:100%!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="eye"]:not([data-ab8-view="all"]) .ab8-derived,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="small"]:not([data-ab8-view="all"]) .ab8-derived,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="roach"]:not([data-ab8-view="all"]) .ab8-derived{display:block!important;width:100%!important;height:100%!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="eye"]:not([data-ab8-view="all"]) .ab8-derived .ab8-eye,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="small"]:not([data-ab8-view="all"]) .ab8-derived .ab8-small,
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="roach"]:not([data-ab8-view="all"]) .ab8-derived .ab8-roach{display:block!important;width:100%!important;height:100%!important;}
+@media (min-width:768px){.app-container #aRoadmap.ab8-roadmap{--ab8-cell:17px!important;}.app-container #aRoadmap.ab8-roadmap .ab8-body{height:155px!important;min-height:155px!important;}.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-body{height:155px!important;min-height:155px!important;}.app-container #aRoadmap.ab8-roadmap .ab8-ask{flex-basis:55px!important;min-width:55px!important;width:55px!important;max-width:55px!important;}.app-container #aRoadmap.ab8-roadmap .ab8-ask-mark{width:12px!important;height:12px!important;min-width:12px!important;min-height:12px!important;}}
+</style>
+<script id="ab8-road-switch-controller">
+(()=>{
+  const panel=document.getElementById('aRoadmap');
+  const surface=document.getElementById('ab8SwitchSurface');
+  if (!panel||!surface) return;
+  const modes=['all','big','eye','small','roach'];
+  let begin=null;
+  const showNext=()=>{
+    const current=panel.dataset.ab8View||'all';
+    panel.dataset.ab8View=modes[(modes.indexOf(current)+1)%modes.length];
+    panel.setAttribute('aria-label','百家樂牌路：'+({'all':'總覽','big':'大路','eye':'大眼仔路','small':'小路','roach':'甲由路'}[panel.dataset.ab8View]));
+  };
+  // Distinguish a tap from a history-scroll gesture. Native horizontal scrolling is never prevented.
+  surface.addEventListener('pointerdown',e=>{begin={x:e.clientX,y:e.clientY,dragged:false};},{passive:true});
+  surface.addEventListener('pointermove',e=>{if(begin&&Math.hypot(e.clientX-begin.x,e.clientY-begin.y)>9)begin.dragged=true;},{passive:true});
+  surface.addEventListener('pointercancel',()=>{if(begin)begin.dragged=true;},{passive:true});
+  surface.addEventListener('click',e=>{
+    if(begin?.dragged){begin=null;return;}
+    begin=null;
+    if(e.target.closest('button,a,input,select'))return;
+    showNext();
+  });
+  surface.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showNext();}});
+})();
+</script>
+
+<style id="ab9-road-continuous-grid">
+/* Full continuous grid fills visible road area, including cells not yet populated. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll {
+  background-color:#f8f9fb!important;
+  background-image:linear-gradient(to right,#dfe2e7 1px,transparent 1px),linear-gradient(to bottom,#dfe2e7 1px,transparent 1px)!important;
+  background-size:var(--ab8-cell) var(--ab8-cell)!important;
+  background-position:0 0!important;
+}
+/* Each panel keeps exactly six rows visible in the roadmap total overview. */
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-bead {--ab8-cell:22px!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-big {--ab8-cell:15px!important;}
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-derived {--ab8-cell:7px!important;}
+/* Dedicated road view: uniformly sized cells and continuous grid all the way to the right/bottom. */
+.app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-all-area {--ab8-cell:22px!important;}
+/* Overwrite old mobile/desktop road selectors only inside our active single source panel. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll > :is(.beadplate-row,.bigroad-row,.subroad-row) {min-height:var(--ab8-cell)!important;height:var(--ab8-cell)!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll :is(.bead-cell,.bigroad-cell,.bigeye-dot,.small-dot,.slash-cell) {width:var(--ab8-cell)!important;height:var(--ab8-cell)!important;min-width:var(--ab8-cell)!important;min-height:var(--ab8-cell)!important;flex-basis:var(--ab8-cell)!important;}
+/* Keep the marker's shape inside its cell rather than stretching the circle into the whole square. */
+.app-container #aRoadmap.ab8-roadmap .bigroad-cell.circle-red,
+.app-container #aRoadmap.ab8-roadmap .bigroad-cell.circle-blue,
+.app-container #aRoadmap.ab8-roadmap .bigeye-dot-red,
+.app-container #aRoadmap.ab8-roadmap .bigeye-dot-blue,
+.app-container #aRoadmap.ab8-roadmap .small-dot-red,
+.app-container #aRoadmap.ab8-roadmap .small-dot-blue {background-clip:padding-box!important;}
+/* Remove all visible scrollbars, without disabling horizontal swipe or history. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll {scrollbar-width:none!important;overflow-x:auto!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll::-webkit-scrollbar {display:none!important;}
+@media(min-width:768px){
+ .app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-bead{--ab8-cell:25px!important;}
+ .app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-big{--ab8-cell:17px!important;}
+ .app-container #aRoadmap.ab8-roadmap[data-ab8-view="all"] .ab8-derived{--ab8-cell:8px!important;}
+ .app-container #aRoadmap.ab8-roadmap[data-ab8-view]:not([data-ab8-view="all"]) .ab8-all-area{--ab8-cell:25px!important;}
+}
+</style>
+
+<style id="abomb-v10-desktop-layout-fix">
+/* Desktop-only: give the betting controls more breathing room without changing portrait/mobile game rules. */
+@media (min-width: 1024px) {
+  .app-container {
+    grid-template-columns:minmax(0, 54fr) minmax(0, 46fr) !important;
+    grid-auto-rows:min-content;
+  }
+  .app-container > .betting-area {
+    grid-area:3 / 2 !important;
+    min-width:0;
+    width:100%;
+    padding:10px !important;
+    gap:8px !important;
+  }
+  /* The statistics belong directly above the road map across both columns. */
+  .app-container > .road-stats-bar {
+    grid-area:4 / 1 / 5 / -1 !important;
+    display:flex !important;
+    min-height:34px !important;
+    padding:4px 10px !important;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    align-self:stretch;
+    align-items:center;
+  }
+  .app-container > .roadmap-panel {
+    grid-area:5 / 1 / 6 / -1 !important;
+    min-width:0;
+  }
+  .app-container > #chatRoom {grid-area:6 / 2 !important;}
+  /* Restore legible primary-play tab labels and the gold/dark visual language. */
+  .app-container .betting-area #aDesktopTabs {
+    display:grid !important;
+    grid-area:1 / 1 / 2 / -1 !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:6px !important;
+    min-width:0;
+  }
+  .app-container .betting-area #aDesktopTabs > button {
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    min-width:0;
+    min-height:40px !important;
+    padding:5px 4px !important;
+    color:#fff2d2 !important;
+    font-size:clamp(12px,1.02vw,17px) !important;
+    font-weight:800 !important;
+    line-height:1.15 !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    text-indent:0 !important;
+    white-space:nowrap !important;
+    background:linear-gradient(180deg,#3a3021 0%,#171616 95%) !important;
+    border:1px solid #b28a49 !important;
+    border-radius:8px !important;
+    box-shadow:inset 0 1px 0 #ffffff20,0 2px 6px #0008 !important;
+  }
+  .app-container .betting-area #aDesktopTabs > button[aria-pressed="true"] {
+    color:#201404 !important;
+    background:linear-gradient(180deg,#ffe6a4 0%,#e3b65e 70%,#9b642e 100%) !important;
+    border-color:#ffde89 !important;
+  }
+  .app-container .betting-area #aDesktopTabs > button:focus-visible {outline:2px solid #fff5c8;outline-offset:2px;}
+}
+</style>
+
+<style id="ab11-road-symbol-fix">
+/* v11: Separate the square GRID CELL from the circular ROAD MARKER.
+   The previous v8-v10 CSS stretched the marker to the full cell and
+   colored its background, resulting in square boxes. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigroad-cell,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigeye-dot,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .small-dot,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .slash-cell {
+  border:0!important;border-radius:0!important;background-color:transparent!important;
+  background-image:none!important;box-shadow:none!important;
+}
+/* Keep gridlines continuous on the scrolling viewport, not on the marks. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll {
+  background-color:#f8f9fb!important;
+  background-image:linear-gradient(to right,#dfe2e7 1px,transparent 1px),linear-gradient(to bottom,#dfe2e7 1px,transparent 1px)!important;
+  background-size:var(--ab8-cell) var(--ab8-cell)!important;
+}
+/* Ordinary big road and big-eye road: hollow circle INSIDE square cell. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigroad-cell.circle-red::before,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigroad-cell.circle-blue::before,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigeye-dot-red::before,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigeye-dot-blue::before {
+ content:""!important;position:absolute!important;inset:12%!important;
+ border:1.5px solid var(--road-color)!important;border-radius:50%!important;
+ background:transparent!important;box-sizing:border-box!important;
+ width:auto!important;height:auto!important;
+}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigroad-cell.circle-red,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigeye-dot-red {--road-color:#e52332!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigroad-cell.circle-blue,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .bigeye-dot-blue {--road-color:#1676d5!important;}
+/* Small road: solid circles centered inside the grid squares. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .small-dot-red::before,
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .small-dot-blue::before {
+ content:""!important;position:absolute!important;inset:22%!important;
+ width:auto!important;height:auto!important;border:0!important;
+ border-radius:50%!important;background:var(--road-color)!important;
+}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .small-dot-red {--road-color:#e52332!important;}
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .small-dot-blue {--road-color:#1676d5!important;}
+/* Cockroach road: just the oblique line. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll .slash-cell svg {display:block!important;width:82%!important;height:82%!important;}
+/* Transparent undecided cells, no accidental square border. */
+.app-container #aRoadmap.ab8-roadmap .ab8-scroll :is(.bigroad-cell,.bigeye-dot,.small-dot,.slash-cell):not([class*="-red"]):not([class*="-blue"])::before {content:none!important;}
+</style>
+<style id="ab12-responsive-betting-and-streak">
+/* v12: Elegant compact consecutive Banker streak badge inside the ask-road rail. */
+.app-container #aRoadmap.ab8-roadmap .ab8-ask{
+  overflow:visible!important;
+}
+.app-container #aRoadmap.ab8-roadmap .ab8-streak:not([hidden]){
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 19px!important;height:19px!important;min-height:19px!important;
+  width:100%!important;margin:0!important;padding:0 1px!important;
+  background:linear-gradient(180deg,#e34c59 0%,#b52036 100%)!important;
+  color:#fff8e9!important;border:1px solid #f0a5a6!important;
+  border-radius:3px 3px 0 0!important;
+  font-size:9px!important;font-weight:800!important;letter-spacing:-.25px!important;
+  line-height:1!important;text-shadow:0 1px 1px #75121c!important;
+  box-shadow:inset 0 1px 0 #ffffff35,0 1px 3px #00000030!important;
+}
+/* Keep five real play choices aligned in one row; do not change the buttons' JavaScript. */
+@media(min-width:768px){
+ .app-container .betting-area #aDesktopTabs{
+    display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;gap:5px!important;width:100%!important;
+    min-width:0!important;align-items:stretch!important;
+ }
+ .app-container .betting-area #aDesktopTabs > button{
+    display:flex!important;min-width:0!important;width:100%!important;
+    min-height:35px!important;height:38px!important;white-space:nowrap!important;
+    padding:4px 2px!important;font-size:clamp(10px,1.1vw,15px)!important;
+    line-height:1.15!important;justify-content:center!important;align-items:center!important;
+    color:#f9e8bf!important;background:linear-gradient(180deg,#3b3225,#171716)!important;
+    border:1px solid #a9874d!important;border-radius:7px!important;
+    box-shadow:inset 0 1px 0 #ffffff23,0 2px 5px #0007!important;
+ }
+ .app-container .betting-area #aDesktopTabs > button[aria-pressed="true"]{
+    color:#241707!important;background:linear-gradient(180deg,#fff0b6,#d8a84e)!important;
+    border-color:#f6d68a!important;
+ }
+}
+/* Tablet and phone LANDSCAPE: use real two-column layout even when viewport is taller than 599px. */
+@media (orientation:landscape) and (min-width:560px) and (max-width:1023px){
+ .app-container{
+    display:grid!important;
+    grid-template-columns:minmax(0,52fr) minmax(0,48fr)!important;
+    grid-auto-rows:min-content!important;
+    gap:5px!important;
+ }
+ .app-container > .top-nav{grid-area:1 / 1 / 2 / -1!important;}
+ .app-container > .a-table-bar{grid-area:2 / 1 / 3 / -1!important;}
+ .app-container > .live-section{grid-area:3 / 1 / 4 / 2!important;min-width:0!important;}
+ .app-container > .betting-area{
+    grid-area:3 / 2 / 4 / 3!important;min-width:0!important;width:100%!important;
+    align-self:stretch!important;padding:5px!important;gap:5px!important;
+ }
+ .app-container > .road-stats-bar{
+    grid-area:4 / 1 / 5 / -1!important;display:flex!important;min-height:32px!important;
+    overflow-x:auto!important;white-space:nowrap!important;align-items:center!important;
+ }
+ .app-container > .roadmap-panel{
+    grid-area:5 / 1 / 6 / -1!important;width:100%!important;min-width:0!important;
+ }
+ .app-container > #chatRoom{grid-area:6 / 2 / 7 / 3!important;}
+ .app-container > .a-road-toggle{display:none!important;}
+ .app-container.a-roads-collapsed > :is(.roadmap-panel,.road-stats-bar){display:flex!important;}
+ .app-container.a-roads-collapsed > .roadmap-panel{display:block!important;}
+ .app-container .betting-area #aDesktopTabs{grid-area:1 / 1 / 2 / -1!important;}
+ .app-container .betting-area #aDesktopTabs > button{
+    min-height:28px!important;height:31px!important;font-size:clamp(9px,1.12vw,12px)!important;
+    padding:2px 1px!important;border-radius:6px!important;
+ }
+ .app-container .betting-area .bet-card-main{min-height:44px!important;}
+ .app-container .betting-area .bet-card-sub{min-height:30px!important;}
+ .app-container .betting-area .chips-grid{min-height:38px!important;}
+ .app-container .betting-area .chip{width:27px!important;height:27px!important;flex-basis:27px!important;}
+ .app-container .betting-area .action-btn{min-height:30px!important;height:32px!important;}
+ .app-container #aRoadmap.ab8-roadmap .ab8-body{height:150px!important;min-height:150px!important;}
+}
+/* Desktop: a slightly larger betting column with five equal tabs. */
+@media(min-width:1024px){
+ .app-container{grid-template-columns:minmax(0,51fr) minmax(0,49fr)!important;}
+ .app-container > .betting-area{padding:9px!important;}
+ .app-container .betting-area #aDesktopTabs{grid-template-columns:repeat(5,minmax(0,1fr))!important;}
+ .app-container .betting-area #aDesktopTabs > button{min-height:40px!important;height:41px!important;}
+}
+</style>
+
+<style id="ab13-desktop-bet-controls-polish">
+/* v13: Desktop-only optical improvements. Leave mobile portrait / landscape and game logic unchanged. */
+@media (min-width:1024px) {
+  /* Give bet choices more presence while preserving three-column primary/four-column side bets. */
+  .app-container > .betting-area #swipeContainer .bet-card-main {
+    min-height:clamp(56px,5.15vw,82px)!important;
+    padding:6px 4px!important;
+  }
+  .app-container > .betting-area #swipeContainer .bet-card-sub {
+    min-height:clamp(43px,3.65vw,58px)!important;
+    padding:5px 3px!important;
+  }
+  /* Slightly increase play selection buttons, keeping all five in one row. */
+  .app-container > .betting-area #aDesktopTabs > button {
+    height:clamp(43px,3.2vw,49px)!important;
+    min-height:43px!important;
+  }
+  /* Apply compact spacing between game choices and chips, not a new layout. */
+  .app-container > .betting-area {
+    row-gap:5px!important;
+  }
+  /* Restore the visible, matching gold-border action buttons and enlarge their tap target. */
+  .app-container > .betting-area #quickBetToggle,
+  .app-container > .betting-area #cancelBetBtn {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    height:clamp(37px,3vw,43px)!important;
+    min-height:37px!important;
+    padding:4px 6px!important;
+    border:1px solid #ac8748!important;
+    border-radius:8px!important;
+    background:linear-gradient(180deg,#312a20 0%,#151515 100%)!important;
+    box-shadow:inset 0 1px 0 rgba(255,232,173,.18),0 2px 5px rgba(0,0,0,.42)!important;
+    color:#ffe3a5!important;
+    font-size:clamp(11px,.95vw,14px)!important;
+    font-weight:800!important;
+    line-height:1.1!important;
+    white-space:nowrap!important;
+    opacity:1!important;
+  }
+  .app-container > .betting-area #quickBetToggle:hover,
+  .app-container > .betting-area #cancelBetBtn:hover {
+    border-color:#f2c773!important;
+    filter:brightness(1.12);
+  }
+  .app-container > .betting-area #quickBetToggle:focus-visible,
+  .app-container > .betting-area #cancelBetBtn:focus-visible {
+    outline:2px solid #ffe49c!important;
+    outline-offset:2px!important;
+  }
+}
+</style>
+
+<style id="ab14-desktop-confirm-chat">
+/* V14: desktop & landscape presentation only. Preserve all original bet/chat handlers. */
+@media (min-width:1024px), (min-width:560px) and (orientation:landscape) {
+  /* Confirm is the primary action, easily seen alongside the other controls. */
+  .app-container > .betting-area #confirmBetBtn {
+    display:flex !important;
+    grid-area:4 / 5 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    box-sizing:border-box !important;
+    width:100% !important;
+    min-width:0 !important;
+    min-height:39px !important;
+    height:clamp(39px,3.1vw,47px) !important;
+    padding:3px 5px !important;
+    border:1px solid #ffe1a0 !important;
+    border-radius:9px !important;
+    background:linear-gradient(180deg,#fff0b6 0%,#edbf60 46%,#b77922 100%) !important;
+    box-shadow:inset 0 1px 0 #fff9d4,0 3px 12px rgba(200,142,43,.28),0 2px 5px rgba(0,0,0,.6) !important;
+    color:#261505 !important;
+    font-weight:900 !important;
+    font-size:clamp(10px,.95vw,14px) !important;
+    line-height:1.1 !important;
+    white-space:nowrap !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    cursor:pointer;
+    text-shadow:none !important;
+  }
+  .app-container > .betting-area #confirmBetBtn .a-action-copy,
+  .app-container > .betting-area #confirmBetBtn i {
+    display:inline !important; color:#261505 !important; font-weight:900 !important;
+  }
+  .app-container > .betting-area #confirmBetBtn:hover {filter:brightness(1.08);}
+  .app-container > .betting-area #confirmBetBtn:focus-visible {outline:2px solid #ffecb8!important;outline-offset:2px;}
+  /* Prevent the grid controls from occupying one another's slots. */
+  .app-container > .betting-area #cancelBetBtn {grid-area:4 / 4!important;}
+  .app-container > .betting-area #quickBetToggle {grid-area:4 / 2!important;}
+  .app-container > .betting-area .commission-switch {grid-area:4 / 3!important;}
+}
+@media (min-width:1024px) {
+  /* Desktop chat pops up as a compact, readable panel. */
+  .app-container > #chatRoom:not(.collapsed) {
+    position:fixed !important;
+    inset:auto max(18px,calc((100vw - 1760px)/2 + 18px)) 18px auto!important;
+    width:min(390px,calc(100vw - 36px))!important;
+    height:min(430px,calc(100dvh - 70px))!important;
+    min-height:260px!important;
+    max-height:min(430px,calc(100dvh - 70px))!important;
+    overflow:hidden!important;
+    display:flex!important;
+    flex-direction:column!important;
+    border:1px solid #a9894c!important;
+    border-radius:16px!important;
+    background:linear-gradient(160deg,#222018 0%,#121519 70%,#0b0e12 100%)!important;
+    box-shadow:0 16px 55px #000c,inset 0 1px 0 #fff2!important;
+    z-index:950!important;
+  }
+  .app-container #chatRoom .chat-header {
+    min-height:53px!important;
+    display:flex!important;align-items:center!important;
+    padding:9px 12px!important;
+    gap:10px!important;
+    background:linear-gradient(100deg,#34291a,#191b20)!important;
+    border-bottom:1px solid #826639!important;
+    color:#f9dc9a!important;
+    font-size:13px!important;
+  }
+  .app-container #chatRoom .chat-header span {flex:1;line-height:1.35;}
+  .app-container #chatRoom .chat-messages {
+    flex:1 1 auto!important;
+    min-height:0!important;
+    overflow-y:auto!important;
+    padding:12px!important;
+    font-size:13px!important;
+    line-height:1.6!important;
+    background:rgba(7,9,12,.3)!important;
+  }
+  .app-container #chatRoom .chat-input-area {
+    display:flex!important;align-items:center!important;
+    flex:0 0 auto!important;
+    gap:8px!important;
+    padding:10px!important;
+    border-top:1px solid #544327!important;
+    background:#161719!important;
+  }
+  .app-container #chatRoom .chat-input-area input {
+    min-width:0!important;flex:1 1 auto!important;
+    height:37px!important;border:1px solid #78613d!important;
+    border-radius:9px!important;background:#0d1013!important;
+    color:#fff!important;padding:0 10px!important;
+  }
+  .app-container #chatRoom .chat-input-area button {
+    flex:0 0 auto!important;min-width:62px!important;height:37px!important;
+    border:1px solid #d6ab64!important;border-radius:9px!important;
+    background:linear-gradient(#ffe7a8,#bc893b)!important;
+    color:#241609!important;font-weight:800!important;
+  }
+  .app-container #chatRoom .chat-input-area button:disabled {opacity:.55!important;cursor:not-allowed!important;}
 }
 </style>
 </body>
