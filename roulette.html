@@ -2648,4 +2648,37 @@ html body > #toolbarDropdown input[type="range"] { min-width: 0; }
     if (sound && sound.parentElement !== document.body) document.body.appendChild(sound);
 })();
 </script>
+<style id="abomb-three-mode-responsive-20261110">
+
+/* ABOMB 三模式排版補丁：直式保留原型、橫式/桌機依實際寬度展開 */
+html {width:100%;} body {max-width:100%;}
+@media (max-width:559px), (max-width:1023px) and (orientation:portrait) {
+  .app {width:100%!important; max-width:430px!important; margin-left:auto!important; margin-right:auto!important;}
+}
+
+@media (min-width:1024px), (min-width:560px) and (orientation:landscape) {
+ body{padding:0!important;display:block!important;}
+ .app {
+   display:grid!important;grid-template-columns:minmax(0,3fr) minmax(0,2fr)!important;
+   grid-template-areas:"header header" "video bets" "video chips" "roads roads" "chat chat"!important;
+   grid-template-rows:auto auto auto auto auto!important;
+   align-items:start!important;align-content:start!important;
+   width:min(100%,1760px)!important;max-width:1760px!important;
+   min-height:100dvh!important;margin-inline:auto!important;padding:8px!important;gap:8px!important;
+   border-radius:0!important;
+ }
+ .app > .top-nav {grid-area:header!important;min-width:0!important;}
+ .app > .video-section {grid-area:video!important;min-width:0!important;width:100%!important;min-height:clamp(300px,40vw,690px)!important;align-self:stretch!important;}
+ .app > .tab-container {grid-area:bets!important;min-width:0!important;width:100%!important;}
+ .app > .sicbo-chip-panel {grid-area:chips!important;min-width:0!important;width:100%!important;}
+ .app > .ab-road-under-chips {grid-area:roads!important;min-width:0!important;width:100%!important;}
+ .app > .chat-room {grid-area:chat!important;min-width:0!important;}
+ .app .roulette-wrapper {max-width:100%!important;}
+}
+@media (min-width:560px) and (orientation:landscape) and (max-height:599px) {
+ .app {padding:4px!important;gap:5px!important;}
+ .app > .video-section {min-height:clamp(185px,49vh,330px)!important;}
+}
+
+</style>
 </body></html>
