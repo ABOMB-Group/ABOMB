@@ -1650,82 +1650,38 @@ body.report-modal-open .report-page{animation:reportTopIn .22s ease forwards !im
 </style>
 
 
-<style id="abomb-lobby-desktop-typography-v1">
-/* 真人館桌機版可讀性優化。保留所有遊戲卡片、素材、光效與既有事件。 */
-@media (min-width: 768px) {
-  .tabs-area { height: 90px !important; padding-top: 20px !important; }
-  .tabs-real {
-    max-width: none !important;
-    height: 56px !important;
-    align-items: center !important;
-    gap: 9px !important;
-    padding: 0 18px !important;
-    overflow: visible !important;
-  }
-  .main-tab {
-    width: 104px !important;
-    min-width: 104px !important;
-    height: 40px !important;
-    line-height: 40px !important;
-    font-size: 16px !important;
-    letter-spacing: .6px !important;
-    border-radius: 9px !important;
-    cursor: pointer;
-    transition: filter .18s ease, transform .18s ease;
-  }
-  .main-tab:hover { filter: brightness(1.15); }
-  .main-tab:focus-visible, .sub-tab:focus-visible, .nav-item:focus-visible {
-    outline: 2px solid #e6c77b !important;
-    outline-offset: 3px;
-  }
-  .aurora-thin { height: 40px !important; border-radius: 9px !important; }
-  .aurora-thin::before { border-radius: 9px !important; }
-  .aurora-thin::after { border-radius: 10px !important; }
-  .sub-tabs {
-    width: 146px !important;
-    min-width: 146px !important;
-    flex: 0 0 146px !important;
-    height: 40px !important;
-    border-radius: 21px !important;
-  }
-  .sub-tab, .sub-tab:first-child, .sub-tab:last-child {
-    width: 50% !important;
-    height: 40px !important;
-    line-height: 40px !important;
-    font-size: 15px !important;
-    cursor: pointer;
-  }
-  .sub-tab.active { border-radius: 21px !important; }
-  .bottom-nav {
-    height: 92px !important;
-    padding-top: 9px !important;
-    padding-bottom: 12px !important;
-  }
-  .bottom-nav .nav-item {
-    height: 70px !important;
-    gap: 6px !important;
-    border-radius: 14px;
-    transition: background .2s ease, color .2s ease;
-  }
-  .bottom-nav .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
-  .bottom-nav .nav-icon { width: 38px !important; height: 38px !important; }
-  .bottom-nav .nav-icon svg { width: 23px !important; height: 23px !important; }
-  .bottom-nav .nav-text {
-    font-size: 14px !important;
-    line-height: 1.25 !important;
-    letter-spacing: .5px !important;
-  }
-  .notice { height: 30px !important; font-size: 13px !important; line-height: 30px !important; }
-  .notice .speaker { width: 30px !important; height: 30px !important; flex-basis: 30px !important; }
+<style id="abomb-lobby-desktop-typography-v2">
+/* Only lobby typography/navigation. Never alter game cards, imagery or lighting. */
+/* The room search was not requested: hide only its visual row; retain existing scripts. */
+.ab52-searchbar { display:none !important; }
+.ab52-smart-lobby:has(> .ab52-searchbar):not(:has(.ab52-strip.on)) {display:none !important;}
+/* Position the animated outline over the actual selected tab (JS updates top/left). */
+.aurora-thin { left:0 !important; pointer-events:none !important; z-index:4 !important; opacity:0; transition:none !important; }
+.aurora-thin.aurora-ready { opacity:1; transition:transform .35s cubic-bezier(.4,0,.2,1), width .35s cubic-bezier(.4,0,.2,1), height .35s cubic-bezier(.4,0,.2,1) !important; }
+.aurora-thin:before { padding:2px !important; }
+@media (min-width:768px) {
+  .tabs-area {height:84px !important;padding-top:16px !important;}
+  .tabs-real {max-width:none !important;height:54px !important;align-items:center !important;gap:9px !important;padding:0 14px !important;overflow:visible !important;}
+  .main-tab {width:100px !important;min-width:100px !important;height:39px !important;line-height:39px !important;font-size:16px !important;border-radius:8px !important;cursor:pointer;}
+  .aurora-thin,.aurora-thin:before {border-radius:8px !important;}
+  .aurora-thin:after {border-radius:9px !important;}
+  .sub-tabs {width:142px !important;min-width:142px !important;flex:0 0 142px !important;height:39px !important;border-radius:20px !important;}
+  .sub-tab,.sub-tab:first-child,.sub-tab:last-child {width:50% !important;height:39px !important;line-height:39px !important;font-size:15px !important;}
+  .sub-tab.active {border-radius:20px !important;}
+  .bottom-nav {height:90px !important;padding-top:9px !important;padding-bottom:12px !important;}
+  .bottom-nav .nav-item {height:68px !important;gap:6px !important;}
+  .bottom-nav .nav-icon {width:37px !important;height:37px !important;}
+  .bottom-nav .nav-icon svg {width:23px !important;height:23px !important;}
+  .bottom-nav .nav-text {font-size:14px !important;line-height:1.25 !important;}
+  .notice {height:30px !important;line-height:30px !important;font-size:13px !important;}
+  .notice .speaker {width:30px !important;height:30px !important;flex-basis:30px !important;}
 }
-@media (min-width: 1200px) {
-  .tabs-area { height: 94px !important; }
-  .tabs-real { padding: 0 24px !important; gap: 12px !important; }
-  .main-tab { width: 115px !important; min-width: 115px !important; height: 44px !important; line-height: 44px !important; font-size: 17px !important; }
-  .aurora-thin { height: 44px !important; }
-  .sub-tabs { height: 44px !important; }
-  .sub-tab, .sub-tab:first-child, .sub-tab:last-child { height: 44px !important; line-height: 44px !important; font-size: 16px !important; }
-  .bottom-nav .nav-text { font-size: 15px !important; }
+@media (min-width:1200px) {
+  .tabs-real {gap:11px !important;padding:0 18px !important;}
+  .main-tab {width:110px !important;min-width:110px !important;height:42px !important;line-height:42px !important;font-size:17px !important;}
+  .sub-tabs {height:42px !important;}
+  .sub-tab,.sub-tab:first-child,.sub-tab:last-child {height:42px !important;line-height:42px !important;font-size:16px !important;}
+  .bottom-nav .nav-text {font-size:15px !important;}
 }
 </style>
 
@@ -1912,11 +1868,19 @@ body.report-modal-open .report-page{animation:reportTopIn .22s ease forwards !im
 const auroraCursor=document.getElementById('auroraCursor');
 const mainTabs=document.querySelectorAll('.main-tab');
 const subTabs=document.querySelectorAll('.sub-tab');
-function moveAuroraTo(btn){const x=btn.offsetLeft;auroraCursor.style.width=btn.offsetWidth+'px';auroraCursor.style.transform=`translateX(${x-6}px)`;}
+function moveAuroraTo(btn){if(!btn||!auroraCursor)return;auroraCursor.style.width=btn.offsetWidth+'px';auroraCursor.style.height=btn.offsetHeight+'px';auroraCursor.style.top=btn.offsetTop+'px';auroraCursor.style.left='0px';auroraCursor.style.transform=`translateX(${btn.offsetLeft}px)`;}
 function applyFilters(){const activeMain=document.querySelector('.main-tab.active')?.dataset.filter||'all';const activeRoute=document.querySelector('.sub-tab.active')?.dataset.route||'normal';document.querySelectorAll('.game-card').forEach(card=>{const matchGame=activeMain==='all'||card.dataset.kind===activeMain;const matchRoute=activeRoute==='normal'||card.dataset.goodroad==='true';card.style.display=(matchGame&&matchRoute)?'':'none';});}
-mainTabs.forEach(btn=>{btn.addEventListener('click',()=>{mainTabs.forEach(b=>b.classList.remove('active'));btn.classList.add('active');moveAuroraTo(btn);applyFilters();});});
+mainTabs.forEach(btn=>{btn.addEventListener('click',()=>{mainTabs.forEach(b=>b.classList.remove('active'));btn.classList.add('active');moveAuroraTo(btn);if(!auroraCursor.classList.contains('aurora-ready'))auroraCursor.classList.add('aurora-ready');applyFilters();});});
 subTabs.forEach(btn=>{btn.addEventListener('click',()=>{subTabs.forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilters();});});
-window.addEventListener('load',()=>{moveAuroraTo(document.querySelector('.main-tab.active'));applyFilters();});
+// Position the outline before it becomes visible: no jump on initial load.
+function initializeAurora(){
+  if(!auroraCursor || auroraCursor.classList.contains('aurora-ready')) return;
+  moveAuroraTo(document.querySelector('.main-tab.active'));
+  applyFilters();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>auroraCursor.classList.add('aurora-ready')));
+}
+window.addEventListener('DOMContentLoaded',initializeAurora);
+window.addEventListener('load',initializeAurora);
 window.addEventListener('resize',()=>{moveAuroraTo(document.querySelector('.main-tab.active'));});
 </script>
 
