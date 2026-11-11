@@ -2179,12 +2179,17 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 </style>
 
+<style id="ab-points-header-style">.ab-points-header{display:inline-flex;gap:5px;align-items:center;padding:4px 7px;border-radius:13px;border:1px solid rgba(233,183,91,.65);background:rgba(0,0,0,.80);color:#ffdc8d;white-space:nowrap;font-size:11px;font-weight:700;z-index:160}.ab-points-header b{color:#fff;font-variant-numeric:tabular-nums}.video-side-action-rail .ab-points-header{position:absolute;right:calc(100% + 7px);top:0}.premium-nav .ab-points-header{margin-left:auto}.top-nav .logo-area,.premium-nav .logo-area{margin-left:0!important;transform:translateX(-4px)}</style>
+<style id="ab-v17-restore-dealer">
+/* Use existing dealer preview asset; layout and game interactions untouched. */
+html body .live-section .video-area .dealer-animation{background-image:linear-gradient(180deg,rgba(7,5,2,.08),rgba(8,6,3,.05) 65%,rgba(11,8,6,.22)),url("assets/img/abomb-dealer-preview.webp")!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;}
+</style>
 </head>
 <body>
 <div class="app-container">
 <div class="top-nav">
 <div class="logo-area"><div class="logo-icon"><i class="fas fa-dragon"></i></div><div class="logo-text">龍虎</div></div>
-<div class="player-info-compact"><div class="compact-avatar"><i class="fas fa-user-astronaut"></i></div><div><div class="compact-name"><span class="compact-name-text" id="playerNicknameText">旋風俠客</span><button class="compact-name-edit" id="playerNicknameEdit" type="button" aria-label="修改暱稱">✎</button></div><div class="compact-detail"><span>💎 鑽石VIP</span><span class="player-points" id="balanceDisplay">888,000</span></div></div></div>
+<div class="player-info-compact"><div class="compact-avatar"><i class="fas fa-user-astronaut"></i></div><div><div class="compact-name"><span class="compact-name-text" id="playerNicknameText">旋風俠客</span><span class="ab-points-header" aria-label="玩家點數">點數 <b id="abPointsMirror">—</b></span><button class="compact-name-edit" id="playerNicknameEdit" type="button" aria-label="修改暱稱">✎</button></div><div class="compact-detail"><span>💎 鑽石VIP</span><span class="player-points" id="balanceDisplay">888,000</span></div></div></div>
 </div>
 <section class="live-section">
 <div class="video-area">
@@ -6084,5 +6089,53 @@ html {width:100%;} body {max-width:100%;}
 }
 
 </style>
-</body>
+<script id="ab-points-sync">(()=>{const source=document.getElementById('balanceDisplay'),dest=document.getElementById('abPointsMirror');if(!source||!dest)return;const sync=()=>dest.textContent=source.textContent.trim();sync();new MutationObserver(sync).observe(source,{childList:true,characterData:true,subtree:true})})();</script><style id="abomb-v15-rooms-desktop-landscape">
+/* Chat drawer: closed = small button, open = readable floating panel. */
+@media (min-width:1024px), (min-width:560px) and (orientation:landscape) {
+ #chatRoom.chat-room {position:fixed!important;inset:auto 14px 14px auto!important;left:auto!important;right:14px!important;bottom:14px!important;top:auto!important;width:min(340px,calc(100vw - 28px))!important;min-width:0!important;min-height:0!important;max-height:52px!important;height:52px!important;z-index:28000!important;border:1px solid rgba(223,183,103,.58)!important;border-radius:15px!important;background:rgba(12,15,22,.96)!important;box-shadow:0 14px 35px #000a!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;transition:height .2s ease,max-height .2s ease!important;}
+ #chatRoom.chat-room.ab-chat-expanded {height:min(430px,calc(100dvh - 32px))!important;max-height:min(430px,calc(100dvh - 32px))!important;}
+ #chatRoom .chat-header {flex:0 0 50px!important;height:50px!important;min-height:50px!important;padding:9px 13px!important;cursor:pointer!important;display:flex!important;align-items:center!important;}
+ #chatRoom .chat-header span {font-size:12px!important;line-height:1.25!important;}
+ #chatRoom:not(.ab-chat-expanded) .chat-messages,#chatRoom:not(.ab-chat-expanded) .chat-input-area {display:none!important;}
+ #chatRoom.ab-chat-expanded .chat-messages {display:block!important;flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;}
+ #chatRoom.ab-chat-expanded .chat-input-area {display:flex!important;flex:0 0 auto!important;min-height:50px!important;}
+ #chatRoom .collapse-icon {transition:transform .2s ease;}
+ #chatRoom.ab-chat-expanded .collapse-icon {transform:rotate(180deg);}
+}
+@media (min-width:560px) and (orientation:landscape) and (max-height:599px){
+ #chatRoom.chat-room.ab-chat-expanded {height:min(300px,calc(100dvh - 14px))!important;max-height:min(300px,calc(100dvh - 14px))!important;bottom:7px!important;right:7px!important;width:min(310px,45vw)!important;}
+ #chatRoom.chat-room {right:7px!important;bottom:7px!important;width:min(310px,45vw)!important;}
+}
+
+@media (min-width:1024px), (min-width:560px) and (orientation:landscape) {
+ .app-container{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)!important;}
+ .app-container > .betting-area {padding:clamp(11px,1.35vw,20px)!important;}
+ .app-container .bet-card-main {min-height:clamp(65px,7vw,104px)!important;}
+ .app-container .bet-card-sub {min-height:clamp(48px,5vw,76px)!important;}
+ .app-container .bet-name {font-size:clamp(13px,1.4vw,22px)!important;}
+ .app-container .bet-odds {font-size:clamp(11px,1vw,16px)!important;}
+ .app-container .dragon-sicbo-chip-panel {padding:10px 12px!important;}
+ .app-container #chipsGrid {gap:clamp(7px,1vw,16px)!important;}
+ .app-container #chipsGrid > * {width:clamp(39px,4vw,58px)!important;height:clamp(39px,4vw,58px)!important;min-width:clamp(39px,4vw,58px)!important;min-height:clamp(39px,4vw,58px)!important;}
+ .app-container .dragon-sicbo-chip-panel .sicbo-action-btn {min-width:40px!important;min-height:40px!important;}
+}
+@media (min-width:560px) and (orientation:landscape) and (max-height:599px){.app-container #chipsGrid > *{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;}}
+</style><script id="abomb-v15-chat-switch">(function(){
+ function init(){var room=document.getElementById('chatRoom');var head=document.getElementById('chatToggle');if(!room||!head)return;
+  /* Capture before old click handlers; do not block the gift icon's original action. */
+  head.addEventListener('click',function(e){
+   if(e.target.closest('.gift-icon')||e.target.closest('#giftIconBtn'))return;
+   if(!window.matchMedia('(min-width:1024px), (min-width:560px) and (orientation:landscape)').matches)return;
+   e.preventDefault();e.stopImmediatePropagation();e.stopPropagation();
+   var isOpen=room.classList.toggle('ab-chat-expanded');
+   room.classList.toggle('collapsed',!isOpen);
+   room.classList.toggle('open',isOpen);
+   head.setAttribute('aria-expanded',String(isOpen));
+  },true);
+  head.setAttribute('role','button');head.setAttribute('tabindex','0');head.setAttribute('aria-expanded','false');
+  head.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();head.click();}});
+  room.classList.remove('ab-chat-expanded');room.classList.add('collapsed');room.classList.remove('open');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();</script></body>
 </html>
