@@ -856,6 +856,13 @@ const CATALOG=[
 {val:10000,tone:'diamond',label:'10K'}
 ];
 const DEFAULT=[5,10,50,100,500,1000];
+const desktopChips=matchMedia('(min-width:1100px) and (pointer:fine)');
+function defaultChipValues(){
+ return desktopChips.matches?[100,500,1000,5000,10000,50000]:DEFAULT.slice();
+}
+function availableChips(){
+ return desktopChips.matches?[...CATALOG,{val:50000,tone:'green',label:'50K'}]:CATALOG;
+}
 function curLang(){try{return localStorage.getItem('ab_sicbo_lang_v1')||'zh-TW';}catch(e){return 'zh-TW';}}
 function chipText(){if(typeof getSicboLangPack==='function') return getSicboLangPack(curLang()); return {chipTitle:'選擇籌碼',chipAfter:' / 選擇面額',chipSub:'從已做好的面額中選 6 種，已新增 5K / 10K，會顯示在下注籌碼列',chipSelected:'已選',chipTypes:'種面額',chipReset:'預設6顆',chipSave:'套用這 6 顆',chipApplied:'已切換 6 種籌碼面額',chipCustom:'選籌碼',now:'目前',totalBet:'總注'};}
 function fmt(v){v=Number(v)||0;return v>=1000?(v%1000===0?(v/1000)+'K':(v/1000).toFixed(1)+'K'):String(v);}
@@ -863,14 +870,14 @@ function getVals(){
 try{
 const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
 if(Array.isArray(arr) && arr.length){
-const legal=arr.map(Number).filter(v=>CATALOG.some(c=>c.val===v));
+const legal=arr.map(Number).filter(v=>availableChips().some(c=>c.val===v));
 if([...new Set(legal)].length===6) return [...new Set(legal)].slice(0,6);
 }
 }catch(e){}
-return DEFAULT.slice();
+return defaultChipValues();
 }
 function chipObj(v,idx){
-const found=CATALOG.find(c=>c.val===Number(v));
+const found=availableChips().find(c=>c.val===Number(v));
 if(found) return found;
 const tones=['white','red','blue','green','purple','gold'];
 return {val:Number(v)||1,tone:tones[idx%tones.length],label:fmt(v)};
@@ -907,7 +914,7 @@ const grid=document.getElementById('customChipGrid'); if(!grid) return;
 const selected=new Set(getVals());
 const txt=chipText();
 grid.innerHTML='<div class="custom-chip-count" style="grid-column:1/-1">'+txt.chipSelected+' <b id="chipPickCount">'+selected.size+'</b> / 6 '+txt.chipTypes+'</div>';
-CATALOG.forEach(ch=>{
+availableChips().forEach(ch=>{
 const card=document.createElement('button');
 card.type='button';
 card.className='custom-chip-option'+(selected.has(ch.val)?' selected':'');
@@ -963,7 +970,7 @@ document.addEventListener('click',e=>{ if(e.target.closest('#customChipBtn')){e.
 const close=document.getElementById('customChipClose'); if(close) close.onclick=closeModal;
 const mask=document.getElementById('customChipMask'); if(mask) mask.addEventListener('click',e=>{ if(e.target===mask) closeModal(); });
 const saveBtn=document.getElementById('chipSaveBtn'); if(saveBtn) saveBtn.onclick=save;
-const reset=document.getElementById('chipResetBtn'); if(reset) reset.onclick=()=>{ localStorage.setItem(STORAGE_KEY,JSON.stringify(DEFAULT)); renderSelector(); window.buildChips(); const t=chipText(); reset.textContent=t.chipReset; const save=document.getElementById('chipSaveBtn'); if(save) save.textContent=t.chipSave; };
+const reset=document.getElementById('chipResetBtn'); if(reset) reset.onclick=()=>{ localStorage.setItem(STORAGE_KEY,JSON.stringify(defaultChipValues())); renderSelector(); window.buildChips(); const t=chipText(); reset.textContent=t.chipReset; const save=document.getElementById('chipSaveBtn'); if(save) save.textContent=t.chipSave; };
 document.addEventListener('abSicboLanguageChanged',()=>{ const t=chipText(); const title=document.getElementById('customChipTitle'); if(title){title.textContent=t.chipTitle; title.setAttribute('data-after',t.chipAfter||'');} const sub=document.querySelector('.custom-chip-sub'); if(sub) sub.textContent=t.chipSub; const resetBtn=document.getElementById('chipResetBtn'); if(resetBtn) resetBtn.textContent=t.chipReset; const save=document.getElementById('chipSaveBtn'); if(save) save.textContent=t.chipSave; const custom=document.querySelector('#customChipBtn span'); if(custom) custom.textContent=t.chipCustom; document.querySelectorAll('.sicbo-bet-info span').forEach((el,i)=>{ if(i===0) el.textContent=t.now; if(i===1) el.textContent=t.totalBet; }); if(document.getElementById('customChipMask')?.classList.contains('show')) renderSelector(); });
 });
 })();
