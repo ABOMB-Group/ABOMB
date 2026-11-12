@@ -1534,12 +1534,13 @@ if((!txt || txt==='35') && typeof startCountdown==='function'){
   #abV65Multi .v65-sub { color:#c6b48f; font-size:12px; margin-top:6px; }
   #abV65Multi .v65-close { width:38px; height:38px; border-color:#967142; color:#ffe1a0; }
   #abV65Multi .v65-list {
-    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-auto-rows:max-content; align-content:start; flex:1 1 0%; overflow-y:auto; overflow-x:hidden; scrollbar-gutter:stable;
     gap:14px; padding:16px 20px; min-height:0; background:#071318;
     scrollbar-width:thin; scrollbar-color:#8e6d40 #0b191e;
   }
   #abV65Multi .v65-card {
-    min-width:0; margin:0; padding:0 12px 12px; border:1px solid #806039;
+    min-width:0; min-height:259px; height:auto; margin:0; padding:0 12px 12px; border:1px solid #806039;
     background:linear-gradient(145deg,#172727,#09141c);
   }
   #abV65Multi .v65-room-head { height:57px; }
