@@ -492,10 +492,10 @@ html {width:100%;} body {max-width:100%;}
 @media (min-width:1100px) and (pointer:fine){
 html body{background:#02090b!important;padding:0!important}
 html body .compact-container.max-w-md{
- --gold:#c99b49;--panel:linear-gradient(145deg,#0a1d1e,#030909 76%);--stage:clamp(520px,38.4vw,740px);
+ --gold:#c99b49;--panel:linear-gradient(145deg,#0a1d1e,#030909 76%);--stage:clamp(420px,calc(100dvh - 240px),550px);
  display:grid!important;grid-template-columns:minmax(0,41fr) minmax(0,5fr) minmax(0,23fr) minmax(0,29fr)!important;
  grid-template-areas:"header header header header" "video video bets bets" "history road road chat"!important;
- grid-template-rows:auto minmax(var(--stage),auto) auto!important;gap:12px!important;padding:10px 14px!important;
+ grid-template-rows:auto var(--stage) auto!important;gap:12px!important;padding:10px 14px!important;
  width:100%!important;max-width:1920px!important;margin:auto!important;min-height:0!important;align-items:stretch!important;
 }
 html body .compact-container > :is(.premium-nav,.glass-panel,.roadmap-container,.ab-sb-road,.chat-room){
@@ -503,11 +503,11 @@ html body .compact-container > :is(.premium-nav,.glass-panel,.roadmap-container,
  background:var(--panel)!important;border:1px solid var(--gold)!important;border-radius:20px!important;
  box-shadow:inset 0 1px #ffe6a844,inset 0 0 14px #3c6f4a22!important;
 }
-html body .compact-container>.premium-nav{padding:8px 18px!important;min-height:68px!important}
+html body .compact-container>.premium-nav{padding:8px 18px!important;min-height:58px!important}
 html body .compact-container>.premium-nav .logo-area{display:flex!important;align-items:center;gap:12px}
 html body .compact-container>.premium-nav .logo-area::before{content:'♠';font-size:42px;color:#ffda81;line-height:1}
 html body .compact-container>.premium-nav .logo-area>*{display:none!important}
-html body .compact-container>.premium-nav .logo-area::after{content:'ABOMB 骰寶\A 真人骰寶';white-space:pre;font-size:clamp(18px,1.65vw,29px);line-height:1.1;font-weight:950;color:#ffd884}
+html body .compact-container>.premium-nav .logo-area::after{content:'ABOMB 骰寶';white-space:nowrap;font-size:clamp(18px,1.65vw,29px);line-height:1.1;font-weight:950;color:#ffd884}
 html body .compact-container>.glass-panel.relative{position:relative!important;overflow:hidden!important;padding:0!important;min-height:var(--stage)!important}
 html body .compact-container .dice-video-area{height:100%!important;min-height:var(--stage)!important;margin:0!important;border:0!important;border-radius:inherit!important}
 html body .compact-container .dice-video-area .live-video-placeholder{background-position:center!important;image-rendering:auto;filter:none!important}
@@ -521,9 +521,9 @@ html body .compact-container>.glass-panel:not(.relative){padding:12px!important;
 .ab-sb-tabs button{min-width:0;padding:8px 2px;border:1px solid #6b563a;border-radius:20px;background:linear-gradient(#263230,#090f0e);color:#f8f2df;font-weight:900;font-size:clamp(13px,1.3vw,21px)}
 .ab-sb-tabs button[aria-pressed=true]{background:linear-gradient(#ffedaa,#f9c044 65%,#d79425);border-color:#ffe79d;color:#201304}
 html body .compact-container :is(.swipe-indicator,.carousel-dots,.ab-history-title){display:none!important}
-html body .compact-container #carouselWrapper{flex:1;display:block!important;min-width:0;overflow:hidden!important}
+html body .compact-container #carouselWrapper{flex:1;display:block!important;min-width:0;min-height:0;overflow-x:hidden!important;overflow-y:auto!important}
 html body .compact-container #carouselWrapper>.bet-page{display:none!important;min-height:0!important;padding:8px 0!important}
-html body .compact-container #carouselWrapper>.bet-page.ab-sb-active{display:flex!important;height:100%;justify-content:center}
+html body .compact-container #carouselWrapper>.bet-page.ab-sb-active{display:flex!important;height:100%;justify-content:safe center}
 html body .compact-container #carouselWrapper .bet-page :is(.bet-card,.combo-card,.combo-bet-card,.triple-card,.total-card){
  border:1px solid #d5a350!important;border-radius:15px!important;background:linear-gradient(160deg,#25352d,#040909 70%)!important;
  box-shadow:inset 0 1px #ffe7a889,0 2px 7px #0008!important;color:#ffe7a6!important;
@@ -532,8 +532,8 @@ html body .compact-container #carouselWrapper .bet-page [data-bet]:hover{filter:
 html body .compact-container #carouselWrapper .bet-page :is(.triple-odds,.center-odds,.total-odds,.combo-odds){color:#ffe07d!important;font-size:clamp(11px,1.2vw,21px)!important;font-weight:950}
 html body .compact-container #doubleComboGrid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important}
 html body .compact-container #tripleBettingContainer{
- display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,2.15fr);grid-template-rows:repeat(2,minmax(110px,1fr));gap:10px!important;
- margin:0!important;width:100%!important;min-height:clamp(285px,22vw,420px);
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,2.15fr);grid-template-rows:repeat(2,minmax(96px,1fr));gap:8px!important;
+ margin:0!important;width:100%!important;min-height:0!important;flex:1 0 auto;align-content:stretch;
 }
 html body .compact-container #tripleBettingContainer :is(.triple-side,.triple-side-grid){display:contents!important}
 html body .compact-container #tripleBettingContainer .triple-side:first-child .triple-card{grid-row:1}
@@ -549,7 +549,7 @@ html body .compact-container #tripleBettingContainer .triple-center{
  box-shadow:inset 0 0 14px #ffd36388,0 1px 6px #000a!important
 }
 html body .compact-container #tripleBettingContainer .center-title{font-size:clamp(24px,2.3vw,40px)!important;color:#fff4cc!important}
-html body .compact-container #tripleBettingContainer .center-triple-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:clamp(10px,1.5vw,24px) 5px!important;width:100%!important}
+html body .compact-container #tripleBettingContainer .center-triple-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:clamp(5px,.55vw,9px) 5px!important;width:100%!important}
 html body .compact-container #tripleBettingContainer .center-triple-item{min-width:0!important;padding:0!important;background:none!important;border:0!important}
 html body .compact-container #tripleBettingContainer :is(.three-dice-row,.center-triple-dice-row){display:flex!important;justify-content:center;gap:3px!important;min-width:0}
 html body .compact-container #tripleBettingContainer :is(.three-dice-row,.center-triple-dice-row)>*{width:clamp(14px,1.8vw,31px)!important;height:auto!important;aspect-ratio:1;min-width:0!important}
@@ -560,11 +560,17 @@ html body .compact-container .sicbo-chip-panel{
 }
 html body .compact-container .sicbo-chip-head{grid-area:multi!important;margin:0!important}
 html body .compact-container .sicbo-chip-title{display:none!important}
-html body .compact-container #chipsContainer{grid-area:chips!important;display:flex!important;flex-wrap:nowrap!important;gap:4px!important;min-width:0;overflow:visible!important;padding:2px!important;margin:0!important}
-html body .compact-container #chipsContainer>.chip-btn{--chip:clamp(25px,3.05vw,55px);width:var(--chip)!important;height:var(--chip)!important;min-width:var(--chip)!important;min-height:0!important;flex:0 0 var(--chip)!important;font-size:clamp(10px,1.05vw,19px)!important;margin:0!important}
-html body .compact-container #chipsContainer #customChipBtn{width:clamp(28px,2.9vw,48px)!important;height:clamp(28px,2.9vw,48px)!important;min-width:0!important;min-height:0!important;flex:none!important;margin:0 0 0 3px!important;border:1px solid #d4a347!important;border-radius:9px!important;background:#131910!important;color:#ffdb70!important}
+html body .compact-container #chipsContainer{grid-area:chips!important;display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:clamp(5px,.45vw,9px)!important;min-width:0;overflow:visible!important;padding:2px!important;margin:0!important}
+html body .compact-container #chipsContainer>.chip-btn{--chip:clamp(32px,2.72vw,49px);width:var(--chip)!important;height:var(--chip)!important;min-width:var(--chip)!important;min-height:0!important;flex:0 0 var(--chip)!important;font-size:clamp(10px,1.05vw,19px)!important;margin:0!important}
+html body .compact-container #chipsContainer #customChipBtn{width:clamp(30px,2.6vw,44px)!important;height:clamp(30px,2.6vw,44px)!important;min-width:0!important;min-height:0!important;flex:none!important;margin:0 0 0 3px!important;border:1px solid #d4a347!important;border-radius:9px!important;background:#131910!important;color:#ffdb70!important}
 html body .compact-container #customChipBtn span{display:none!important}
-html body .compact-container #chipsContainer .ab-chip span{font-size:inherit!important}
+html body .compact-container #chipsContainer > .chip-btn.ab-chip > span{
+ font-size:clamp(13px,1vw,18px)!important;line-height:1!important;font-weight:900!important;
+ letter-spacing:-.035em!important;font-variant-numeric:tabular-nums;color:inherit!important;
+ text-shadow:none!important;white-space:nowrap!important;
+}
+html body .compact-container #chipsContainer > .chip-btn.ab-chip:is([data-value="500"],[data-value="1000"]){color:#17120a!important}
+html body .compact-container #chipsContainer > .chip-btn.ab-chip:is([data-value="100"],[data-value="5000"],[data-value="10000"],[data-value="50000"]){color:#fff!important}
 html body .compact-container #chipsContainer [data-value="100"]{background:radial-gradient(circle at 35% 25%,#666,#171717 55%,#020202)!important;color:#fff!important}
 html body .compact-container #chipsContainer [data-value="1000"]{background:radial-gradient(circle at 35% 25%,#fff,#ddd 55%,#7c7c7c)!important;color:#151515!important}
 html body .compact-container #chipsContainer [data-value="5000"]{background:radial-gradient(circle at 35% 25%,#f95c52,#b01410 55%,#640807)!important;color:#fff!important}
@@ -579,12 +585,12 @@ html body .compact-container :is(#multiTableBetBtn,#cancelBtn,#confirmBtn){posit
 html body .compact-container #multiTableBetBtn{background:#13180c!important;color:#ffdd7f!important}
 html body .compact-container #confirmBtn{background:linear-gradient(#a335f6,#4a05ab)!important;color:white!important;border-color:#c787ff!important}
 .ab-sb-action-text{display:inline}
-html body .compact-container>.roadmap-container{grid-area:history!important;min-height:190px!important;padding:10px 12px!important}
-html body .compact-container>.roadmap-container::before{content:'開獎紀錄';display:block;color:#ffe09b;font-size:20px;font-weight:900;margin-bottom:7px}
+html body .compact-container>.roadmap-container{grid-area:history!important;min-height:0!important;height:154px!important;padding:7px 10px!important}
+html body .compact-container>.roadmap-container::before{content:'開獎紀錄';display:block;color:#ffe09b;font-size:16px;font-weight:900;margin-bottom:4px}
 html body .compact-container #historyRoadmapTrack{justify-content:flex-start!important}
-html body .compact-container>.ab-sb-road{grid-area:road;display:grid;grid-template-columns:minmax(0,1fr) 58px;padding:7px;gap:6px;min-height:190px}
+html body .compact-container>.ab-sb-road{grid-area:road;display:grid;grid-template-columns:minmax(0,1fr) 58px;padding:6px;gap:5px;min-height:0;height:154px}
 .ab-sb-road-scroll{min-width:0;overflow:auto;display:flex}
-.ab-sb-road-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(6,minmax(24px,1fr));grid-auto-columns:minmax(26px,1fr);width:max-content;min-width:100%;border-top:1px solid #575855;border-left:1px solid #575855;background:#040606}
+.ab-sb-road-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(6,minmax(0,1fr));grid-auto-columns:minmax(26px,1fr);width:max-content;min-width:100%;border-top:1px solid #575855;border-left:1px solid #575855;background:#040606}
 .ab-sb-cell{display:grid;place-items:center;border-right:1px solid #575855;border-bottom:1px solid #575855;font-size:clamp(14px,1.2vw,21px);font-weight:950;line-height:1;color:#f75a5e}
 .ab-sb-cell.cool{color:#32b9ff}.ab-sb-cell.triple{color:#43de7e}
 .ab-sb-road-switch{display:grid;grid-template-rows:1fr 1fr;gap:5px}
@@ -681,4 +687,101 @@ html body .compact-container>#chatRoom.chat-room .chat-input-area input{min-widt
  enhanceControls();
  renderRoad();
 })();
-</script></body></html>
+</script><style id="ab-sb-desktop-readability">@media (min-width:1100px) and (pointer:fine){
+ html body .compact-container #carouselWrapper .bet-page:has(#totalBetWrapper) > div:first-child{margin-bottom:12px!important}
+ html body .compact-container #carouselWrapper .bet-page:has(#totalBetWrapper) > div:first-child span{font-size:clamp(16px,1.35vw,23px)!important}
+ html body .compact-container #totalBetWrapper{width:100%!important;max-width:none!important;gap:10px!important;margin:0!important}
+ html body .compact-container #totalBetWrapper .total-row{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));width:100%!important;gap:8px!important}
+ html body .compact-container #totalBetWrapper .total-card{
+  width:100%!important;min-width:0!important;max-width:none!important;height:clamp(76px,calc((var(--stage) - 220px) / 2),128px)!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:5px!important;margin:0!important;padding:5px 1px!important;
+ }
+ html body .compact-container #totalBetWrapper .total-number{font-size:clamp(25px,3vw,50px)!important;color:#fff0c2!important;line-height:1!important;text-shadow:none!important}
+ html body .compact-container #totalBetWrapper .total-odds{font-size:clamp(11px,1.25vw,22px)!important;line-height:1.1!important}
+ html body .compact-container #carouselWrapper :is(.dice-grid-single,.dice-grid-double,.dice-combo-grid,.triple-dice-grid,.center-dice-grid),
+ html body .compact-container #historyRoadmapTrack .road-dice-grid{
+  --face:clamp(26px,2.4vw,44px);
+  display:grid!important;grid-template:repeat(3,minmax(0,1fr))/repeat(3,minmax(0,1fr))!important;
+  width:var(--face)!important;height:var(--face)!important;gap:0!important;padding:3px!important;
+  flex:none!important;background:#fff7e9!important;border-radius:6px!important;
+ }
+ html body .compact-container #carouselWrapper :is(.triple-dice-grid,.center-dice-grid){--face:clamp(24px,1.9vw,35px)}
+ html body .compact-container #historyRoadmapTrack .road-dice-grid{--face:clamp(19px,1.2vw,22px)}
+ html body .compact-container #carouselWrapper :is(.dice-grid-single,.dice-grid-double,.dice-combo-grid,.triple-dice-grid,.center-dice-grid)>div,
+ html body .compact-container #historyRoadmapTrack .road-dice-grid>div{display:grid!important;place-items:center;min-width:0;min-height:0}
+ html body .compact-container #carouselWrapper :is(.dot-red-single,.dot-black-single,.dot-red-double,.dot-black-double,.dot-red-combo,.dot-black-combo,.triple-dot-red,.triple-dot-black,.center-dot-red,.center-dot-black),
+ html body .compact-container #historyRoadmapTrack :is(.road-dot-red,.road-dot-black){
+  width:clamp(5px,calc(var(--face) * .22),10px)!important;height:clamp(5px,calc(var(--face) * .22),10px)!important;
+  margin:0!important;box-shadow:none!important;
+ }
+ html body .compact-container .dice-container{--video-die:clamp(42px,3.15vw,58px);--video-cup:calc(var(--video-die) + 8px)}
+ html body .compact-container .dice-container .dice-cup-wrapper{flex:0 0 var(--video-cup)!important;width:var(--video-cup)!important}
+ html body .compact-container .dice-container .dice-cup{
+  box-sizing:border-box!important;width:var(--video-cup)!important;height:var(--video-cup)!important;
+  min-width:var(--video-cup)!important;min-height:var(--video-cup)!important;aspect-ratio:1!important;
+ }
+ html body .compact-container .dice-container .clear-dice{
+  box-sizing:border-box!important;flex:0 0 var(--video-die)!important;
+  width:var(--video-die)!important;height:var(--video-die)!important;
+  min-width:var(--video-die)!important;min-height:var(--video-die)!important;aspect-ratio:1!important;
+ }
+ html body .compact-container .dice-container .dice-dot-grid-large{width:86%!important;height:86%!important;padding:4px!important;gap:2px!important}
+ html body .compact-container .dice-container :is(.dot-large-red,.dot-large-black){width:clamp(8px,.82vw,14px)!important;height:clamp(8px,.82vw,14px)!important}
+ html body .compact-container #historyRoadmapTrack .road-column{width:clamp(43px,2.9vw,54px)!important}
+ html body .compact-container #historyRoadmapTrack .dice-area-vertical{min-height:0!important;padding:1px!important;gap:1px!important}
+ html body .compact-container #historyRoadmapTrack :is(.total-cell-mini,.result-cell-mini){height:13px!important;min-height:13px!important;line-height:13px!important;font-size:10px!important;padding:0!important;margin:0!important;box-sizing:border-box!important}
+ html body .compact-container #historyRoadmapTrack .road-column{gap:1px!important;padding:2px!important}
+ html body .compact-container .ab-sb-road-grid{height:100%;align-self:stretch}
+ html body .compact-container .ab-sb-cell{font-size:clamp(13px,1vw,17px)}
+ html body .compact-container #chipsContainer>.chip-btn.active-chip{
+  transform:none!important;outline:2px solid #ffe29c!important;outline-offset:1px;
+  box-shadow:0 0 8px #ffcd6d77!important;
+ }
+ html body .compact-container>#chatRoom.chat-room:not(.ab-chat-expanded){max-width:none!important;min-height:0!important;height:154px!important}
+
+ html body.betting-locked .compact-container #carouselWrapper .bet-page [data-bet]{opacity:.88!important;filter:none!important;pointer-events:none!important;cursor:not-allowed}
+ html body .compact-container .sicbo-chip-panel{
+  grid-template-columns:auto auto!important;grid-template-areas:"chips actions" "info info"!important;justify-content:start!important;column-gap:12px!important;
+ }
+ html body .compact-container .sicbo-chip-panel>.sicbo-chip-head{display:none!important}
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons{
+  grid-area:actions!important;display:flex!important;min-width:0!important;width:auto!important;height:auto!important;gap:7px!important;align-items:center!important;
+ }
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons>:is(.sicbo-action-item,.sicbo-action-multi-wrap){
+  display:block!important;width:auto!important;min-width:0!important;height:auto!important;margin:0!important;padding:0!important;
+ }
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons>.sicbo-action-multi-wrap{order:-2}
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons>.sicbo-action-item:has(#cancelBtn){order:-1}
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons :is(button#confirmBtn,button#cancelBtn,button#multiTableBetBtn){
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;aspect-ratio:auto!important;
+  width:auto!important;min-width:0!important;max-width:none!important;height:clamp(38px,3.15vw,55px)!important;min-height:0!important;max-height:none!important;
+  padding:0 clamp(6px,.76vw,13px)!important;border-radius:10px!important;font-size:clamp(11px,1vw,17px)!important;
+ }
+ html body .compact-container .sicbo-chip-panel>.sicbo-action-buttons .ab-sb-action-text{display:inline!important;font-size:inherit!important;color:#fff!important}
+}
+@media (min-width:1100px) and (max-width:1250px) and (pointer:fine){
+ html body .compact-container .sicbo-chip-panel{grid-template-areas:"chips chips" "info actions"!important}
+}
+
+@media (min-width:1450px) and (pointer:fine){
+ html body .compact-container .sicbo-chip-panel{
+  grid-template-columns:auto auto minmax(0,1fr)!important;
+  grid-template-areas:"chips actions info"!important;align-items:center!important;
+ }
+ html body .compact-container .sicbo-chip-panel>.sicbo-bet-bottom{
+  justify-content:flex-end!important;align-self:center!important;gap:4px!important;flex-wrap:wrap!important;
+ }
+}
+
+@media (min-width:1100px) and (pointer:fine){
+ html body .compact-container #carouselWrapper>.bet-page.ab-sb-active:has(#tripleBettingContainer){
+  box-sizing:border-box!important;justify-content:flex-start;min-height:100%!important;height:auto!important;padding:3px 0!important;
+ }
+ html body .compact-container #tripleBettingContainer :is(.three-dice-row,.center-title,.center-odds,.triple-odds){margin:0!important}
+ html body .compact-container #tripleBettingContainer :is(.triple-card,.triple-center){gap:4px!important}
+ html body .compact-container #tripleBettingContainer .center-title{font-size:clamp(22px,1.85vw,32px)!important;text-shadow:none!important}
+ html body .compact-container #tripleBettingContainer .center-odds{padding:2px 12px!important;align-self:center}
+ html body .compact-container #historyRoadmapTrack{align-items:flex-start!important;height:auto!important;min-height:0!important}
+ html body .compact-container #historyRoadmapTrack .road-dice-grid{padding:2px!important}
+}
+</style></body></html>
