@@ -6250,8 +6250,18 @@ html body .roadmap-panel .road-stats{grid-column:3;grid-row:2/4;display:grid!imp
  html body .app-container>.live-section{display:block!important;height:auto!important;min-height:0!important}
  html body .app-container .live-section .video-area{display:block!important;height:auto!important;aspect-ratio:auto!important}
  html body .app-container>.betting-area{position:relative!important;inset:auto!important;transform:none!important}
- html body .video-area .table-title{top:8px!important;left:39px!important;min-height:24px!important;font-size:10px!important}
- html body .video-area .video-exit-btn{top:8px!important;left:6px!important;width:27px!important;height:27px!important}
+ html body .video-area .table-title{top:12px!important;left:48px!important;min-height:32px!important;font-size:10px!important}
+ html body .video-area #videoExitBtn{
+   top:12px!important;left:10px!important;width:32px!important;height:32px!important;
+   min-width:32px!important;min-height:32px!important;
+   border:1px solid #c69a55!important;border-radius:7px!important;
+   background:#110d08f2!important;color:#fff1cf!important;
+ }
+ html body .video-area #videoExitBtn .ab-video-icon{width:17px;height:17px;stroke-width:2}
+ @media (max-width:380px){
+   html body .video-area #videoExitBtn{top:10px!important;left:8px!important;width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important}
+   html body .video-area .table-title{top:10px!important;left:44px!important;min-height:30px!important}
+ }
  html body .video-area .video-side-action-rail{top:26%!important;width:28px!important;gap:3px!important}
  html body .video-area .video-side-action-rail .rail-btn{width:26px!important;height:26px!important}
  .ab-video-icon{width:14px;height:14px}
@@ -6463,6 +6473,29 @@ html body .app-container .top-nav #balanceDisplay{font-size:10px!important}
 
 /* Desktop betting controls and road layout. */
 @media (min-width: 900px) {
+  html body .video-area #videoExitBtn {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border: 1px solid #c69a55 !important;
+    border-radius: 8px !important;
+    background: #110d08e8 !important;
+    color: #fff1cf !important;
+  }
+  html body .video-area #videoExitBtn .ab-video-icon {
+    width: 21px;
+    height: 21px;
+    stroke-width: 2;
+  }
+  html body .video-area #videoExitBtn:focus-visible {
+    outline: 2px solid #ffdf95;
+    outline-offset: 2px;
+  }
+  html body .video-area .table-title {
+    left: 58px !important;
+    top: 14px !important;
+  }
   html body .app-container {
     --desktop-road-height: clamp(166px, 23dvh, 218px);
     --desktop-game-height: clamp(420px, calc(100dvh - var(--desktop-road-height) - 92px), 720px);
