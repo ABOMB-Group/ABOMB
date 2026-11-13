@@ -492,10 +492,10 @@ html {width:100%;} body {max-width:100%;}
 @media (min-width:1100px) and (pointer:fine){
 html body{background:#02090b!important;padding:0!important}
 html body .compact-container.max-w-md{
- --gold:#c99b49;--panel:linear-gradient(145deg,#0a1d1e,#030909 76%);--stage:clamp(420px,calc(100dvh - 240px),550px);
+ --gold:#c99b49;--panel:linear-gradient(145deg,#0a1d1e,#030909 76%);--sb-info:clamp(154px,20dvh,205px);--stage:clamp(420px,calc(100dvh - var(--sb-info) - 102px),720px);
  display:grid!important;grid-template-columns:minmax(0,41fr) minmax(0,5fr) minmax(0,23fr) minmax(0,29fr)!important;
  grid-template-areas:"header header header header" "video video bets bets" "history road road chat"!important;
- grid-template-rows:auto var(--stage) auto!important;gap:12px!important;padding:10px 14px!important;
+ grid-template-rows:auto var(--stage) var(--sb-info)!important;gap:12px!important;padding:10px 14px!important;
  width:100%!important;max-width:1920px!important;margin:auto!important;min-height:0!important;align-items:stretch!important;
 }
 html body .compact-container > :is(.premium-nav,.glass-panel,.roadmap-container,.ab-sb-road,.chat-room){
@@ -585,10 +585,10 @@ html body .compact-container :is(#multiTableBetBtn,#cancelBtn,#confirmBtn){posit
 html body .compact-container #multiTableBetBtn{background:#13180c!important;color:#ffdd7f!important}
 html body .compact-container #confirmBtn{background:linear-gradient(#a335f6,#4a05ab)!important;color:white!important;border-color:#c787ff!important}
 .ab-sb-action-text{display:inline}
-html body .compact-container>.roadmap-container{grid-area:history!important;min-height:0!important;height:154px!important;padding:7px 10px!important}
+html body .compact-container>.roadmap-container{grid-area:history!important;min-height:0!important;height:100%!important;padding:7px 10px!important}
 html body .compact-container>.roadmap-container::before{content:'開獎紀錄';display:block;color:#ffe09b;font-size:16px;font-weight:900;margin-bottom:4px}
 html body .compact-container #historyRoadmapTrack{justify-content:flex-start!important}
-html body .compact-container>.ab-sb-road{grid-area:road;display:grid;grid-template-columns:minmax(0,1fr) 58px;padding:6px;gap:5px;min-height:0;height:154px}
+html body .compact-container>.ab-sb-road{grid-area:road;display:grid;grid-template-columns:minmax(0,1fr) 58px;padding:6px;gap:5px;min-height:0;height:100%}
 .ab-sb-road-scroll{min-width:0;overflow:auto;display:flex}
 .ab-sb-road-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(6,minmax(0,1fr));grid-auto-columns:minmax(26px,1fr);width:max-content;min-width:100%;border-top:1px solid #575855;border-left:1px solid #575855;background:#040606}
 .ab-sb-cell{display:grid;place-items:center;border-right:1px solid #575855;border-bottom:1px solid #575855;font-size:clamp(14px,1.2vw,21px);font-weight:950;line-height:1;color:#f75a5e}
@@ -729,10 +729,10 @@ html body .compact-container>#chatRoom.chat-room .chat-input-area input{min-widt
  html body .compact-container .dice-container :is(.dot-large-red,.dot-large-black){width:clamp(8px,.82vw,14px)!important;height:clamp(8px,.82vw,14px)!important}
  html body .compact-container #historyRoadmapTrack .road-column{width:clamp(43px,2.9vw,54px)!important}
  html body .compact-container #historyRoadmapTrack .dice-area-vertical{min-height:0!important;padding:1px!important;gap:1px!important}
- html body .compact-container #historyRoadmapTrack :is(.total-cell-mini,.result-cell-mini){height:13px!important;min-height:13px!important;line-height:13px!important;font-size:10px!important;padding:0!important;margin:0!important;box-sizing:border-box!important}
+ html body .compact-container #historyRoadmapTrack :is(.total-cell-mini,.result-cell-mini){height:17px!important;min-height:17px!important;line-height:17px!important;font-size:12px!important;padding:0!important;margin:0!important;box-sizing:border-box!important}
  html body .compact-container #historyRoadmapTrack .road-column{gap:1px!important;padding:2px!important}
  html body .compact-container .ab-sb-road-grid{height:100%;align-self:stretch}
- html body .compact-container .ab-sb-cell{font-size:clamp(13px,1vw,17px)}
+ html body .compact-container .ab-sb-cell{font-size:clamp(15px,1.2vw,22px)}
  html body .compact-container #chipsContainer>.chip-btn.active-chip{
   transform:none!important;outline:2px solid #ffe29c!important;outline-offset:1px;
   box-shadow:0 0 8px #ffcd6d77!important;
@@ -783,5 +783,16 @@ html body .compact-container>#chatRoom.chat-room .chat-input-area input{min-widt
  html body .compact-container #tripleBettingContainer .center-odds{padding:2px 12px!important;align-self:center}
  html body .compact-container #historyRoadmapTrack{align-items:flex-start!important;height:auto!important;min-height:0!important}
  html body .compact-container #historyRoadmapTrack .road-dice-grid{padding:2px!important}
+}
+</style><style id="abomb-desktop-exit">
+@media (min-width:1100px) and (pointer:fine) {
+  html body .dice-video-area .mt-exit-btn#exitRoomBtn {
+    width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;
+    border:1px solid #c69a55!important;border-radius:8px!important;
+    background:#110d08e8!important;color:#fff1cf!important;
+  }
+  html body .dice-video-area .mt-exit-btn#exitRoomBtn i {font-size:18px!important;color:inherit!important}
+  html body .dice-video-area .mt-exit-btn#exitRoomBtn:focus-visible {outline:2px solid #ffdf95;outline-offset:2px}
+  html body .dice-video-area .room-live-info {margin-left:8px!important}
 }
 </style></body></html>

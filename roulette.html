@@ -3239,12 +3239,13 @@ html {width:100%;} body {max-width:100%;}
 html body .roulette-chip-panel-v25 .ab26-desktop-label,html body .roulette-chip-panel-v25 #abMultiBtn span.ab26-desktop-label{display:none!important}
 @media (min-width:1100px) and (pointer:fine){
  html body .app {
-   --ab-stage-height:clamp(450px,34vw,620px);
+   --ab-info-height:clamp(132px,19dvh,200px);
+   --ab-stage-height:clamp(450px,calc(100dvh - var(--ab-info-height) - 114px),720px);
    --ab-chip-height:clamp(125px,7.6vw,138px);
    --ab-outline:#a77935;
    grid-template-columns:minmax(0,31fr) minmax(0,12fr) minmax(0,26fr) minmax(0,3fr) minmax(0,12fr) minmax(0,16fr)!important;
    grid-template-areas:"header header header header header header" "video bets bets side side side" "video chips chips side side side" "roads roads analysis analysis chat chat"!important;
-   grid-template-rows:64px calc(var(--ab-stage-height) - var(--ab-chip-height) - 10px) var(--ab-chip-height) 132px!important;
+   grid-template-rows:64px calc(var(--ab-stage-height) - var(--ab-chip-height) - 10px) var(--ab-chip-height) var(--ab-info-height)!important;
    gap:10px!important;padding:10px!important;align-items:stretch!important;
    min-height:0!important;height:auto!important;max-width:1920px!important;
    border:0!important;background:linear-gradient(155deg,#061b20,#03090e 56%,#06141b)!important;
@@ -3329,9 +3330,6 @@ html body .roulette-chip-panel-v25 .ab26-desktop-label,html body .roulette-chip-
  html body .app>.roulette-chip-panel-v25 #abUnifiedChips .chip-btn.ab-chip{
    --chip-size:clamp(28px,2.32vw,45px);width:var(--chip-size)!important;height:var(--chip-size)!important;min-width:var(--chip-size)!important;min-height:var(--chip-size)!important;flex:0 0 var(--chip-size)!important;
  }
- html body .app>.roulette-chip-panel-v25 #abUnifiedChips .chip-btn.ab-chip span{
-   font-size:clamp(11px,.82vw,16px)!important;
- }
  html body .app>.roulette-chip-panel-v25 #abGearBtn.chip-custom-btn{width:32px!important;min-width:32px!important;height:30px!important;flex:0 0 32px!important}
  html body .app>.roulette-chip-panel-v25 .sicbo-bet-bottom{margin:0!important;min-height:0!important;justify-content:end!important}
  html body .app>.roulette-chip-panel-v25 .sicbo-action-buttons{
@@ -3365,12 +3363,12 @@ html body .roulette-chip-panel-v25 .ab26-desktop-label,html body .roulette-chip-
    display:block!important;height:100%!important;padding:11px!important;background:linear-gradient(#0a2224,#030d12)!important;
  }
  html body .app>.ab-road-under-chips .ab-road-title,.ab24-analysis h2{font-size:clamp(13px,1.05vw,20px)!important;color:#ffd781!important;margin:0 0 6px}
- html body .app>.ab-road-under-chips #abRecentGrid{min-height:50px;align-items:center;scrollbar-width:thin}
+ html body .app>.ab-road-under-chips #abRecentGrid{min-height:60px;align-items:center;scrollbar-width:thin}
  html body .app>.ab-road-under-chips #abRecentGrid:empty:before{content:'等待開獎紀錄';font-size:13px;color:#d2bd94}
  html body .app>.ab24-analysis #abRoadStats{display:grid;gap:3px;justify-content:stretch}
  .ab24-analysis .ab-stat{display:grid;grid-template-columns:54px 1fr;align-items:center;gap:4px;text-align:left}
- .ab24-analysis .ab-stat span{grid-column:1;grid-row:1;border:1px solid #78572a;border-radius:5px;padding:2px;text-align:center;color:#ffdda4;background:#402d16}
- .ab24-analysis .ab-stat b{grid-column:2;grid-row:1;padding:2px 6px;border:1px solid #354547;color:#f4ead4;background:#061014}
+ .ab24-analysis .ab-stat span{grid-column:1;grid-row:1;border:1px solid #78572a;border-radius:5px;padding:4px 2px;font-size:12px;text-align:center;color:#ffdda4;background:#402d16}
+ .ab24-analysis .ab-stat b{grid-column:2;grid-row:1;padding:4px 6px;font-size:15px;border:1px solid #354547;color:#f4ead4;background:#061014}
  html body .app>#chatRoom.chat-room:not(.ab-chat-expanded){
    position:relative!important;inset:auto!important;height:100%!important;min-height:0!important;max-height:none!important;
    background:linear-gradient(#0a2224,#030d12)!important;
@@ -3383,4 +3381,15 @@ html body .roulette-chip-panel-v25 .ab26-desktop-label,html body .roulette-chip-
  html body.ab-roulette-desktop-fold .app>.roulette-chip-panel-v25{opacity:.55;pointer-events:none}
 }
 </style>
-</body></html>
+<style id="abomb-desktop-exit">
+@media (min-width:1100px) and (pointer:fine) {
+  html body .video-section #videoExitBtn {
+    width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;
+    border:1px solid #c69a55!important;border-radius:8px!important;
+    background:#110d08e8!important;color:#fff1cf!important;
+  }
+  html body .video-section #videoExitBtn i {font-size:18px!important;color:inherit!important}
+  html body .video-section #videoExitBtn:focus-visible {outline:2px solid #ffdf95;outline-offset:2px}
+  html body .video-section .roulette-limit-topbar {left:56px!important;top:16px!important}
+}
+</style></body></html>
