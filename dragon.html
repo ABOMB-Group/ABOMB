@@ -6473,6 +6473,36 @@ html body .app-container .top-nav #balanceDisplay{font-size:10px!important}
 
 /* Desktop betting controls and road layout. */
 @media (min-width: 900px) {
+  .roadmap-panel .ab-road-ask {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    width: 128px;
+    gap: 4px;
+  }
+  .roadmap-panel .ab-road-ask button {
+    min-width: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px 7px;
+    background: #fff;
+    color: #9f1828;
+  }
+  .roadmap-panel .ab-road-ask button + button { color: #0b5098; }
+  .roadmap-panel .ab-road-ask button[aria-pressed=true] {
+    outline: 2px solid #95651b;
+    outline-offset: -3px;
+  }
+  .roadmap-panel .ab-road-ask .ab-ask-label {
+    writing-mode: horizontal-tb;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  .roadmap-panel .ab-road-ask .ab-ask-marks {
+    width: auto;
+    grid-template-columns: repeat(3, 11px);
+    gap: 3px;
+  }
+  .roadmap-panel .ab-road-ask .ab-road-symbol { width: 10px; }
   html body .video-area #videoExitBtn {
     width: 40px !important;
     height: 40px !important;
