@@ -8033,13 +8033,46 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
 <style id="ab13-desktop-bet-controls-polish">
 /* v13: Desktop-only optical improvements. Leave mobile portrait / landscape and game logic unchanged. */
 @media (min-width:1024px) {
-  /* Give bet choices more presence while preserving three-column primary/four-column side bets. */
+  /* Keep the balance with the player profile on desktop. */
+  html body .app-container > .top-nav .player-info-compact {
+    max-width:none!important; min-height:46px!important; padding:4px 12px 4px 6px!important;
+    gap:8px!important; border:1px solid #94713b!important; border-radius:12px!important;
+    background:linear-gradient(#30271b,#171613)!important;
+  }
+  html body .app-container > .top-nav .compact-avatar {
+    width:34px!important;height:34px!important;flex:0 0 34px!important;font-size:15px!important;
+  }
+  html body .app-container > .top-nav .compact-name {
+    font-size:12px!important;line-height:1.2!important;white-space:nowrap;
+  }
+  html body .app-container > .top-nav .compact-detail {display:flex!important;line-height:1.2!important}
+  html body .app-container > .top-nav .compact-detail > span:first-child {
+    display:inline-flex!important;align-items:center;gap:4px;color:#ffd98b!important;
+  }
+  html body .app-container > .top-nav #playerPointsDisplay {
+    display:inline!important;font-size:15px!important;color:#ffd98b!important;font-variant-numeric:tabular-nums;
+  }
+  html body .app-container > .a-table-bar .ab-room-points {display:none!important}
+
+  /* Use the available betting row height for the existing choices. */
+  .app-container > .betting-area #swipeContainer .bet-main-grid {
+    display:flex; justify-content:center; height:100%; gap:10px!important;
+  }
+  .app-container > .betting-area #swipeContainer .bet-card-main .bet-name {
+    font-size:clamp(25px,2.2vw,40px)!important;
+  }
+  .app-container > .betting-area #swipeContainer .bet-card-sub .bet-name {
+    font-size:clamp(15px,1.22vw,22px)!important;
+  }
+  .app-container > .betting-area #swipeContainer .bet-odds {
+    font-size:clamp(13px,1.05vw,19px)!important;
+  }
   .app-container > .betting-area #swipeContainer .bet-card-main {
-    min-height:clamp(56px,5.15vw,82px)!important;
+    min-height:clamp(76px,7.4dvh,116px)!important;
     padding:6px 4px!important;
   }
   .app-container > .betting-area #swipeContainer .bet-card-sub {
-    min-height:clamp(43px,3.65vw,58px)!important;
+    min-height:clamp(54px,6.5dvh,82px)!important;
     padding:5px 3px!important;
   }
   /* Slightly increase play selection buttons, keeping all five in one row. */
@@ -8199,5 +8232,51 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
   html body .video-area #videoExitBtn:focus-visible {outline:2px solid #ffdf95;outline-offset:2px}
   
 }
-</style></body>
+</style>
+<style id="abomb-baccarat-multitable-desktop">
+@media (min-width:1024px) and (pointer:fine) {
+  #quickBetMask.quick-bet-mask {
+    align-items:center!important;
+    padding:16px!important;
+  }
+  #quickBetMask .quick-bet-sheet {
+    box-sizing:border-box;
+    width:min(100%,1120px)!important;
+    max-width:none!important;
+    height:min(800px,calc(100dvh - 32px))!important;
+    max-height:none!important;
+    border-radius:18px!important;
+  }
+  #quickBetMask .quick-bet-head {flex:0 0 auto}
+  #quickBetMask #quickBetBody {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-auto-rows:max-content;
+    align-content:start;
+    align-items:start;
+    gap:12px;
+    padding:12px!important;
+  }
+  #quickBetMask #quickBetBody::-webkit-scrollbar-track {margin:4px!important}
+  #quickBetMask .quick-table-card {
+    min-width:0;
+    height:auto!important;
+    max-height:none!important;
+    margin:0!important;
+  }
+  #quickBetMask .quick-fixed-panel {
+    position:relative!important;
+    inset:auto!important;
+    flex:0 0 auto;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(350px,auto);
+    align-items:center;
+    gap:12px;
+    padding:10px 12px!important;
+  }
+  #quickBetMask .quick-bottom-row {margin:0!important}
+  #quickBetMask .quick-toast {bottom:78px!important}
+}
+</style>
+</body>
 </html>
