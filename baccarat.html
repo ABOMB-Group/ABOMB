@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>AB Baccarat V28｜標籤＋滑動雙切換版</title>
+    <title>ABOMB 百家樂｜逐張計分修正版</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Poppins', 'Microsoft JhengHei', sans-serif; }
 
@@ -3156,7 +3156,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
                 </div>
             </section>
             <div class="dealer-animation"><div class="cards-area"><div class="player-cards"><div style="font-size:10px; color:#88aaff;">閒家</div><div class="card-row" id="playerCardsRow"></div></div><div class="dealer-status" id="dealerStatusText" role="status">待下注</div><div class="banker-cards"><div style="font-size:10px; color:#ff8888;">莊家</div><div class="card-row" id="bankerCardsRow"></div></div></div></div>
-            <div class="result-indicator"><div class="indicator-player" id="playerIndicator"><span class="indicator-label">閒 PLAYER</span><span class="points-value" id="playerPointsValue">0</span></div><div class="indicator-banker" id="bankerIndicator"><span class="points-value" id="bankerPointsValue">0</span><span class="indicator-label">莊 BANKER</span></div></div>
+            <div class="result-indicator"><div class="indicator-player" id="playerIndicator"><span class="indicator-label">閒 PLAYER</span><span class="points-value" id="playerPointsValue">—</span></div><div class="indicator-banker" id="bankerIndicator"><span class="points-value" id="bankerPointsValue">—</span><span class="indicator-label">莊 BANKER</span></div></div>
             <div class="limit-badge"><i class="fas fa-dice"></i> 限注 100-20000</div>
             <div class="settings-gear" id="settingsGearBtn"><i class="fas fa-cog"></i></div>
             <div class="radar-countdown" id="radarCountdown"><div class="radar-scan"></div><div class="countdown-number" id="hudCountdownNumber">15</div></div>
@@ -3214,7 +3214,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
   </div>
 </div>
 
-    <div class="chat-room collapsed" id="chatRoom" role="region" aria-label="聊天室"><div class="chat-header" id="chatToggleBtn"><i class="fas fa-gift gift-icon" id="giftIconBtn"></i><span>💬 下注達100元，開始聊天</span><button type="button" class="collapse-icon" aria-controls="chatMessages" aria-expanded="false" aria-label="展開聊天室"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg"><span class="msg-name">💎 系統</span><span> : 精緻骰寶風格禮物｜完整百家樂補牌｜視訊區箭頭｜動態好路抽屜｜新增輪盤遊戲房</span></div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="下注滿100元後可聊天..." disabled><button id="sendChatBtn" disabled>發送</button></div></div>
+    <div class="chat-room collapsed" id="chatRoom" hidden style="display:none!important" role="region" aria-label="聊天室"><div class="chat-header" id="chatToggleBtn"><i class="fas fa-gift gift-icon" id="giftIconBtn"></i><span>💬 下注達100元，開始聊天</span><button type="button" class="collapse-icon" aria-controls="chatMessages" aria-expanded="false" aria-label="展開聊天室"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg"><span class="msg-name">💎 系統</span><span> : 精緻骰寶風格禮物｜完整百家樂補牌｜視訊區箭頭｜動態好路抽屜｜新增輪盤遊戲房</span></div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="下注滿100元後可聊天..." disabled><button id="sendChatBtn" disabled>發送</button></div></div>
 </div>
 
 <!-- 右側抽屜面板 - 動態好路提醒（新增輪盤房間） -->
@@ -3610,7 +3610,9 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
         function getRankDisplay(v){ if(v===1) return 'A'; if(v===11) return 'J'; if(v===12) return 'Q'; if(v===13) return 'K'; return v.toString(); }
         function getCardValueForPoint(v){ return v>=10?0:v; }
         function shouldBankerDraw(bankerPoints, playerThirdCard) { if(bankerPoints <= 2) return true; if(bankerPoints === 3) return (playerThirdCard !== 8); if(bankerPoints === 4) return (playerThirdCard >= 2 && playerThirdCard <= 7); if(bankerPoints === 5) return (playerThirdCard >= 4 && playerThirdCard <= 7); if(bankerPoints === 6) return (playerThirdCard === 6 || playerThirdCard === 7); return false; }
-        async function addOneCard(container, cardValue, ownerName, delayMs){ await new Promise(r=>setTimeout(r, delayMs + 1500)); let suit=getSuitSymbol(); let cardDiv=document.createElement('div'); cardDiv.className='playing-card deal-animation'; let rankText=getRankDisplay(cardValue); let colorClass=suit.color==='red'?'suit-red':'suit-black'; cardDiv.innerHTML=`<div class="card-rank">${rankText}</div><div class="card-suit ${colorClass}">${suit.sym}</div>`; container.appendChild(cardDiv); addChatMessage("🎙️ 荷官", `${ownerName} 開出 ${rankText}${suit.sym}`, "#ffaa88"); await new Promise(r=>setTimeout(r, 400)); }
+        async function addOneCard(container, cardValue, ownerName, delayMs){ await new Promise(r=>setTimeout(r, delayMs + 1500)); let suit=getSuitSymbol(); let cardDiv=document.createElement('div'); cardDiv.className='playing-card deal-animation'; let rankText=getRankDisplay(cardValue); let colorClass=suit.color==='red'?'suit-red':'suit-black'; cardDiv.innerHTML=`<div class="card-rank">${rankText}</div><div class="card-suit ${colorClass}">${suit.sym}</div>`; cardDiv.dataset.baccaratPoint = getCardValueForPoint(cardValue); container.appendChild(cardDiv); const revealed = [...container.querySelectorAll('[data-baccarat-point]')];
+            const score = revealed.reduce((total, card) => total + Number(card.dataset.baccaratPoint), 0) % 10;
+            (container === playerRow ? playerPointsSpan : bankerPointsSpan).textContent = String(score); addChatMessage("🎙️ 荷官", `${ownerName} 開出 ${rankText}${suit.sym}`, "#ffaa88"); await new Promise(r=>setTimeout(r, 400)); }
         async function animateChipsFly(areaIds, win) { let promises=[]; areaIds.forEach(id=>{ let area=document.getElementById(id); if(area){ let chips=Array.from(area.children); chips.forEach(chip=>{ if(win) chip.classList.add('chip-fly-to-player-win'); else chip.classList.add('chip-fly-up-lose'); promises.push(new Promise(resolve=>{
             const finish = () => {
                 clearTimeout(timeout);
@@ -3646,7 +3648,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
             refreshChipStack(key);
         }
         updateMutualState();
-        statusDiv.textContent='發牌中'; playerRow.innerHTML=''; bankerRow.innerHTML=''; let pCard1=Math.floor(Math.random()*13)+1, pCard2=Math.floor(Math.random()*13)+1, bCard1=Math.floor(Math.random()*13)+1, bCard2=Math.floor(Math.random()*13)+1; let pCards=[pCard1,pCard2], bCards=[bCard1,bCard2]; await addOneCard(playerRow, pCards[0], '閒家', 200); await addOneCard(bankerRow, bCards[0], '莊家', 0); await addOneCard(playerRow, pCards[1], '閒家', 0); await addOneCard(bankerRow, bCards[1], '莊家', 0); let pRaw=getCardValueForPoint(pCard1)+getCardValueForPoint(pCard2), bRaw=getCardValueForPoint(bCard1)+getCardValueForPoint(bCard2); let pPoint=pRaw%10, bPoint=bRaw%10, pThird=null, playerDrew=false, isNatural=(pPoint>=8||bPoint>=8); if(!isNatural){ if(pPoint<=5){ let p3=Math.floor(Math.random()*13)+1; pCards.push(p3); pThird=p3; pRaw+=getCardValueForPoint(p3); pPoint=pRaw%10; playerDrew=true; await addOneCard(playerRow, pThird, '閒家', 0); } if(playerDrew){ if(shouldBankerDraw(bPoint, getCardValueForPoint(pThird))){ let b3=Math.floor(Math.random()*13)+1; bCards.push(b3); bRaw+=getCardValueForPoint(b3); bPoint=bRaw%10; await addOneCard(bankerRow, b3, '莊家', 0); } } else { if(bPoint<=5){ let b3=Math.floor(Math.random()*13)+1; bCards.push(b3); bRaw+=getCardValueForPoint(b3); bPoint=bRaw%10; await addOneCard(bankerRow, b3, '莊家', 0); } } } statusDiv.textContent='開牌中'; await new Promise(resolve=>setTimeout(resolve,350)); playerPointsSpan.innerText=pPoint; bankerPointsSpan.innerText=bPoint; let winner=''; if(pPoint>bPoint) winner='閒'; else if(bPoint>pPoint) winner='莊'; else winner='和'; statusDiv.textContent=winner==='和'?'和局':winner+'勝'; addChatMessage("🎰 結果", `${winner}家獲勝！`, "#ffcc88"); playerIndicator.classList.remove('active'); bankerIndicator.classList.remove('active'); if(winner==='閒') playerIndicator.classList.add('active'); else if(winner==='莊') bankerIndicator.classList.add('active'); else { playerIndicator.style.boxShadow="0 0 15px #88ffaa"; bankerIndicator.style.boxShadow="0 0 15px #88ffaa"; setTimeout(()=>{ playerIndicator.style.boxShadow=""; bankerIndicator.style.boxShadow=""; },1500); } setTimeout(()=>{ playerIndicator.classList.remove('active'); bankerIndicator.classList.remove('active'); },2000); let winAmountMap=new Map(); let isCommissionFree=document.getElementById('commissionToggle').checked; let bankerOdds=isCommissionFree?1:0.95; let isPlayerWin=(winner==='閒'), isBankerWin=(winner==='莊'), isTie=(winner==='和'); let betAreaIds=[]; for(let [key,val] of totalBet.entries()) if(val>0) betAreaIds.push(`chipsArea-${key}`); let anyWin=false; if(isPlayerWin && (totalBet.get('player')||0)>0){ winAmountMap.set('chipsArea-player', totalBet.get('player')); anyWin=true; } if(isBankerWin && (totalBet.get('banker')||0)>0){ winAmountMap.set('chipsArea-banker', Math.floor(totalBet.get('banker')*bankerOdds)); anyWin=true; } if(isTie && (totalBet.get('tie')||0)>0){ winAmountMap.set('chipsArea-tie', totalBet.get('tie')*8); anyWin=true; }
+        statusDiv.textContent='發牌中'; playerPointsSpan.textContent=bankerPointsSpan.textContent='—'; playerRow.replaceChildren(); bankerRow.replaceChildren(); let pCard1=Math.floor(Math.random()*13)+1, pCard2=Math.floor(Math.random()*13)+1, bCard1=Math.floor(Math.random()*13)+1, bCard2=Math.floor(Math.random()*13)+1; let pCards=[pCard1,pCard2], bCards=[bCard1,bCard2]; await addOneCard(playerRow, pCards[0], '閒家', 200); await addOneCard(bankerRow, bCards[0], '莊家', 0); await addOneCard(playerRow, pCards[1], '閒家', 0); await addOneCard(bankerRow, bCards[1], '莊家', 0); let pRaw=getCardValueForPoint(pCard1)+getCardValueForPoint(pCard2), bRaw=getCardValueForPoint(bCard1)+getCardValueForPoint(bCard2); let pPoint=pRaw%10, bPoint=bRaw%10, pThird=null, playerDrew=false, isNatural=(pPoint>=8||bPoint>=8); if(!isNatural){ if(pPoint<=5){ let p3=Math.floor(Math.random()*13)+1; pCards.push(p3); pThird=p3; pRaw+=getCardValueForPoint(p3); pPoint=pRaw%10; playerDrew=true; await addOneCard(playerRow, pThird, '閒家', 0); } if(playerDrew){ if(shouldBankerDraw(bPoint, getCardValueForPoint(pThird))){ let b3=Math.floor(Math.random()*13)+1; bCards.push(b3); bRaw+=getCardValueForPoint(b3); bPoint=bRaw%10; await addOneCard(bankerRow, b3, '莊家', 0); } } else { if(bPoint<=5){ let b3=Math.floor(Math.random()*13)+1; bCards.push(b3); bRaw+=getCardValueForPoint(b3); bPoint=bRaw%10; await addOneCard(bankerRow, b3, '莊家', 0); } } } statusDiv.textContent='開牌中'; await new Promise(resolve=>setTimeout(resolve,350)); playerPointsSpan.innerText=pPoint; bankerPointsSpan.innerText=bPoint; let winner=''; if(pPoint>bPoint) winner='閒'; else if(bPoint>pPoint) winner='莊'; else winner='和'; statusDiv.textContent=winner==='和'?'和局':winner+'勝'; addChatMessage("🎰 結果", `${winner}家獲勝！`, "#ffcc88"); playerIndicator.classList.remove('active'); bankerIndicator.classList.remove('active'); if(winner==='閒') playerIndicator.classList.add('active'); else if(winner==='莊') bankerIndicator.classList.add('active'); else { playerIndicator.style.boxShadow="0 0 15px #88ffaa"; bankerIndicator.style.boxShadow="0 0 15px #88ffaa"; setTimeout(()=>{ playerIndicator.style.boxShadow=""; bankerIndicator.style.boxShadow=""; },1500); } setTimeout(()=>{ playerIndicator.classList.remove('active'); bankerIndicator.classList.remove('active'); },2000); let winAmountMap=new Map(); let isCommissionFree=document.getElementById('commissionToggle').checked; let bankerOdds=isCommissionFree?1:0.95; let isPlayerWin=(winner==='閒'), isBankerWin=(winner==='莊'), isTie=(winner==='和'); let betAreaIds=[]; for(let [key,val] of totalBet.entries()) if(val>0) betAreaIds.push(`chipsArea-${key}`); let anyWin=false; if(isPlayerWin && (totalBet.get('player')||0)>0){ winAmountMap.set('chipsArea-player', totalBet.get('player')); anyWin=true; } if(isBankerWin && (totalBet.get('banker')||0)>0){ winAmountMap.set('chipsArea-banker', Math.floor(totalBet.get('banker')*bankerOdds)); anyWin=true; } if(isTie && (totalBet.get('tie')||0)>0){ winAmountMap.set('chipsArea-tie', totalBet.get('tie')*8); anyWin=true; }
         const superTieKey = superTieKeys[pPoint];
         const superTieStake = totalBet.get(superTieKey);
         if (isTie && superTieStake > 0) {
@@ -4043,7 +4045,12 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
                 streakBanner.textContent = bankers >= 2 ? bankers+'連莊' : '';
             }
         }
-        function startNextRoundCountdown(){ if(roundTimer) clearTimeout(roundTimer); if(countdownInterval) clearInterval(countdownInterval); settle=false; updateSideBetAvailability(); countdownSec=15; if(radarDiv) radarDiv.classList.remove('hide'); if(hudNum) hudNum.innerText=countdownSec; countdownInterval=setInterval(()=>{ if(settle) return; if(countdownSec<=1){ clearInterval(countdownInterval); if(hudNum) hudNum.innerText=0; if(radarDiv) radarDiv.classList.add('hide'); settle=true; addChatMessage("🎲 系統", "下注結束，開始發牌", "#ffaa66"); executeDeal(); } else { countdownSec--; if(hudNum) hudNum.innerText=countdownSec; if(countdownSec<=5 && countdownSec>0 && !masterMuted && gameVolume>0){ try{ let ctx=new (AudioContext||webkitAudioContext)(); let osc=ctx.createOscillator(); let gain=ctx.createGain(); gain.gain.value=gameVolume/100; osc.frequency.value=880; osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+0.1); ctx.close(); }catch(e){} } if(radarDiv && countdownSec<=5) radarDiv.classList.add('urgent'); else if(radarDiv) radarDiv.classList.remove('urgent'); } },1000); }
+        function startNextRoundCountdown(){
+            playerPointsSpan.textContent=bankerPointsSpan.textContent='—';
+            playerRow.replaceChildren();
+            bankerRow.replaceChildren();
+            statusDiv.textContent='等待下注';
+            if(roundTimer) clearTimeout(roundTimer); if(countdownInterval) clearInterval(countdownInterval); settle=false; updateSideBetAvailability(); countdownSec=15; if(radarDiv) radarDiv.classList.remove('hide'); if(hudNum) hudNum.innerText=countdownSec; countdownInterval=setInterval(()=>{ if(settle) return; if(countdownSec<=1){ clearInterval(countdownInterval); if(hudNum) hudNum.innerText=0; if(radarDiv) radarDiv.classList.add('hide'); settle=true; addChatMessage("🎲 系統", "下注結束，開始發牌", "#ffaa66"); executeDeal(); } else { countdownSec--; if(hudNum) hudNum.innerText=countdownSec; if(countdownSec<=5 && countdownSec>0 && !masterMuted && gameVolume>0){ try{ let ctx=new (AudioContext||webkitAudioContext)(); let osc=ctx.createOscillator(); let gain=ctx.createGain(); gain.gain.value=gameVolume/100; osc.frequency.value=880; osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+0.1); ctx.close(); }catch(e){} } if(radarDiv && countdownSec<=5) radarDiv.classList.add('urgent'); else if(radarDiv) radarDiv.classList.remove('urgent'); } },1000); }
 
         function updateRoadStats(){
             const total=gameHistory.length;
@@ -4316,6 +4323,9 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
         function setChatOpen(open) {
             if (!open) document.getElementById("giftModal").classList.add("hide");
             chatRoomDiv.classList.toggle('collapsed', !open);
+            chatRoomDiv.hidden = !open;
+            if (open) chatRoomDiv.style.removeProperty('display');
+            else chatRoomDiv.style.setProperty('display', 'none', 'important');
             chatLaunch.setAttribute('aria-expanded', String(open));
             chatToggle.setAttribute('aria-expanded', String(open));
             chatToggle.setAttribute('aria-label', open ? '關閉聊天室' : '展開聊天室');
@@ -4432,6 +4442,32 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
 .chip-picker-btn:active{transform:scale(.95);}
 .custom-chip-mask{position:fixed;inset:0;z-index:50000;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);}
 .custom-chip-mask.show{display:flex;}
+@media (min-width:1024px) {
+    #customChipMask {
+        align-items:center;
+        padding:20px;
+        box-sizing:border-box;
+    }
+    #customChipMask .custom-chip-panel {
+        box-sizing:border-box;
+        max-width:780px;
+        max-height:100%;
+        overflow:auto;
+        border-radius:24px;
+        padding:24px 28px;
+    }
+    #customChipMask .custom-chip-grid {
+        grid-template-columns:repeat(5,minmax(0,1fr));
+        gap:12px;
+        margin:16px 0 20px;
+    }
+    #customChipMask .custom-chip-option {min-height:98px;}
+    #customChipMask .option-chip {width:50px;height:50px;font-size:12px;}
+    #customChipMask :is(.option-label,.custom-chip-sub,.custom-chip-count) {font-size:13px;}
+    #customChipMask .custom-chip-title {font-size:21px;}
+    #customChipMask .custom-chip-close {width:36px;height:36px;cursor:pointer;}
+    #customChipMask .custom-chip-actions button {height:44px;font-size:14px;}
+}
 .custom-chip-panel{width:100%;max-width:430px;border-radius:24px 24px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));background:radial-gradient(circle at 18% 0%,rgba(143,60,255,.22),transparent 34%),linear-gradient(180deg,#25242b 0%,#111219 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 -18px 38px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.10);}
 .custom-chip-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .custom-chip-title{font-size:15px;font-weight:950;color:#fff;letter-spacing:.8px;}
@@ -4704,6 +4740,7 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
       el.textContent=ch.val.toLocaleString("en-US");
       el.classList.toggle("chip-long-label", ch.val >= 1000);
       applyTone(el,ch);
+
     });
     let grid=document.querySelector('.chips-grid');
     if(grid && !document.getElementById('chipPickerBtn')){
@@ -8276,6 +8313,60 @@ input:checked + .slider:before{transform:translateX(19px)!important;}
   }
   #quickBetMask .quick-bottom-row {margin:0!important}
   #quickBetMask .quick-toast {bottom:78px!important}
+}
+</style>
+<style id="abomb-desktop-chat-rail">
+html body #chatRoom:is([hidden],.collapsed) {display:none!important}
+@media (min-width:1024px) {
+  .video-area .video-utility-stack { left:0; }
+  .video-area .video-utility-stack .video-decoder-launch {margin-left:12px}
+  .video-area .video-utility-stack .a-chat-launch {
+    display:grid!important;place-items:center;width:32px;min-height:65px!important;
+    writing-mode:vertical-rl;text-orientation:upright;letter-spacing:1px;
+    padding:5px 0;border-radius:0 9px 9px 0;border-left:0;
+    background:linear-gradient(#343743,#191b24);
+  }
+  .video-area .video-utility-stack .a-chat-launch span {display:none}
+  .app-container > #chatRoom:not(.collapsed) {
+    inset:auto auto 18px max(12px,calc((100vw - 1760px)/2 + 12px))!important;
+  }
+}
+</style><style id="abomb-baccarat-chip-finish">
+html body .betting-area .chips-grid .chip {
+  --rim:#66615a; --face:#fbf3db; --shade:#a7987a; --ink:#21180d;
+  background:
+    radial-gradient(circle, var(--face) 0%, var(--shade) 57%, #fff5 59%, transparent 63%),
+    repeating-conic-gradient(from 8deg,#fff1cf 0deg 11deg,var(--rim) 11deg 45deg)!important;
+  border:1px solid #e7c891!important;
+  box-shadow:inset 0 1px 2px #fff9,inset 0 -2px 3px #0008,0 3px 5px #000b!important;
+  color:var(--ink)!important;
+  text-shadow:0 1px 1px #0004!important;
+}
+html body .betting-area .chips-grid .chip::before,
+html body .betting-area .chips-grid .chip::after {display:none!important}
+html body .betting-area .chips-grid .chip[data-value="10"]{--rim:#17479c;--face:#347eff;--shade:#073072;--ink:#fff}
+html body .betting-area .chips-grid .chip[data-value="50"]{--rim:#981925;--face:#ec4d55;--shade:#690e19;--ink:#fff}
+html body .betting-area .chips-grid .chip[data-value="100"]{--rim:#777;--face:#fff;--shade:#c5c5c5}
+html body .betting-area .chips-grid .chip[data-value="500"]{--rim:#95550e;--face:#ffda77;--shade:#b67920}
+html body .betting-area .chips-grid .chip:is([data-value="1K"],[data-value="1000"]){--rim:#176245;--face:#37ad7d;--shade:#104b36;--ink:#fff}
+html body .betting-area .chips-grid .chip:is([data-value="5K"],[data-value="5000"]){--rim:#a84a19;--face:#f99b55;--shade:#9c4019;--ink:#fff}
+html body .betting-area .chips-grid .chip:is([data-value="10K"],[data-value="10000"]){--rim:#681bb0;--face:#aa60de;--shade:#481379;--ink:#fff}
+html body .betting-area .chips-grid .chip:is([data-value="50K"],[data-value="50000"]){--rim:#4e3920;--face:#e9bc58;--shade:#9e681a}
+html body .betting-area .chips-grid .chip[data-value="200"]{--rim:#762598;--face:#ca73ee;--shade:#5a167a;--ink:#fff}
+html body .betting-area .chips-grid .chip[data-value="2000"]{--rim:#156f87;--face:#5ecce7;--shade:#145469;--ink:#fff}
+@media (min-width:1024px) {
+  html body .betting-area .chips-grid .chip {
+    text-align:center;font-size:clamp(13px,1.2vw,20px)!important;
+    line-height:1!important;letter-spacing:0!important;
+  }
+  html body .betting-area .chips-grid .chip.chip-long-label {
+    font-size:clamp(11px,.95vw,16px)!important;
+  }
+}
+html body .betting-area .chips-grid .chip.active-chip {
+  outline:2px solid #ffd77e;outline-offset:1px;
+  transform:none!important;
+  box-shadow:0 0 7px #f5b44fcc,inset 0 1px 2px #fff9,inset 0 -2px 3px #0008!important;
 }
 </style>
 </body>
